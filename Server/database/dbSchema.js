@@ -11,7 +11,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }) 
   .catch(err => console.error('MongoDB connection error:', err));
 
 
-// Define a schema and model for the items and prices
+// Define a schema and model for the items and hashrates
 const minerSchema = new mongoose.Schema ({
     minerId: String,
     workerName: String,
