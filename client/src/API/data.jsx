@@ -13,23 +13,17 @@ export const DataProvider = ({children}) => {
 
     const fetchData = async () => {
         try{
-            const res = await axios.get("Backend Route to DB");
-            setData(await res.Json());
+            const res = await axios.get("http://localhost:80/api/data");
+            console.log(res);
+            setData(await res.json());
         }catch(error){
             console.log("Error fetching data", error);
         }
     };
 
   return (
-    <DataProvider.Provider value={{data}}>
+    <DataContext.Provider value={{data}}>
         {children}
-    </DataProvider.Provider>
+    </DataContext.Provider>
   );
-}
-
-
-
-    
-
-
-export default data
+};
