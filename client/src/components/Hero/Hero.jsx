@@ -1,8 +1,10 @@
 import React from 'react'
+import classes from "./Hero.module.css";
 
 const Hero = () => {
   return (
-    <div>Hero</div>
+    <div className={classes["hero-container"]}>
+    </div>
   )
 }
 

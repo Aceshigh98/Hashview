@@ -1,0 +1,9 @@
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    width: auto;
+    color: white;
+    background-color: black;
+}
