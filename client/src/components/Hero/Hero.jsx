@@ -1,11 +1,14 @@
 import React from 'react'
 import classes from "./Hero.module.css";
+import Sidebar from '../Sidebar/Sidebar';
 
 const Hero = () => {
   return (
-    <div className={classes["hero-container"]}>
-    </div>
+    <section className={classes["hero-container"]}>
+      <Sidebar className={classes['sidebar']}/>
+
+    </section>
   )
 }
 
-export default Hero
+export default Hero;

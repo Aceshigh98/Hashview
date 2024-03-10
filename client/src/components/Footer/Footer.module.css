@@ -1,9 +1,48 @@
 
 .footer-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     height: auto;
     width: auto;
     color: white;
     background-color: black;
+}
+
+.title{
+    width: auto;
+    height: 100%;
+    text-align: center;
+    font-size: xx-small;
+    font-weight: bolder;
+}
+
+.icon-container {
+    display: flex; /* Make icon-container a flex container */
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+    width: 300px;
+    height: 100%;
+    text-align: center;
+}
+
+.icon-subcontainer{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: auto;
+    align-items: center;
+    
+}
+
+.icon-subcontainer a{
+    font-size: small;
+    font-weight:bolder;
+    cursor: pointer;
+  }
+
+  .icon{
+    margin-top: 20px;
+    height: 25px;
+    width: 25px;
 }

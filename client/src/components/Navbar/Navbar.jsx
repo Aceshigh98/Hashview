@@ -2,7 +2,7 @@ import React from 'react'
 import classes from "./Navbar.module.css";
 import { IoMdInformationCircle } from "react-icons/io";
 import { CgWebsite } from "react-icons/cg";
-import { FaGithub } from "react-icons/fa";
+import { TbLogout2 } from "react-icons/tb";
 import Divider from '../Divider/Divider';
 
 const Navbar = () => {
@@ -22,8 +22,8 @@ const Navbar = () => {
         <a>Porfolio</a>
       </div>
       <div className={classes['icon-subcontainer']}>
-        <FaGithub className={classes['icon']}/>
-        <a>Github</a>
+        <TbLogout2 className={classes['icon']}/>
+        <a>Logout</a>
       </div> 
     </div>
     <Divider/>

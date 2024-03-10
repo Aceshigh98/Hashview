@@ -15,7 +15,7 @@ export const DataProvider = ({children}) => {
         try{
             const res = await axios.get("http://localhost:80/api/data");
             console.log(res);
-            setData(await res.json());
+            setData(res.data);
         }catch(error){
             console.log("Error fetching data", error);
         }
