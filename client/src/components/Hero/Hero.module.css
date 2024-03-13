@@ -1,6 +1,9 @@
 
 .hero-container{
     height: 100vh;
-    width: auto;
+    padding: 100px;
+    display: flex;
+
+    width: 100%;
     background-color: black;
 }

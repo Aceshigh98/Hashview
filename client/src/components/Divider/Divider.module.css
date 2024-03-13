@@ -1,15 +1,18 @@
-@keyframes slideGradient {
-    from {
-      background-position: 100% 0;
-    }
-    to {
-      background-position: 0 0;
-    }
-  }
 
+@keyframes slide-Gradient {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+  
   .gradient-wave {
     width: 100%; /* Adjust based on your needs */
-    height: 8px; /* Adjust based on your needs */
+    height: 7px; /* Adjust based on your needs */
     background: linear-gradient(90deg, rgb(240, 186, 51) 0%, white 50%, rgb(240, 186, 51) 100%);
-    animation: slideGradient 8s infinite;
+    animation: slide-Gradient 4s infinite;
   }
+
+ 
