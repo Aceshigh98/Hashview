@@ -1,7 +1,11 @@
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { DataContext } from '../../../API/data';
-import MinerStatsContainer from './MinerStatsContainer/MinerStatsContainer';
+import IndividualStats from './IndividualStats/IndividualStats';
+import IndividualMinerTable from './IndividualMinerTable/IndividualMinerTable';
+import IndividialMinerHashrateChart from './IndividialMinerHashrateChart/IndividialMinerChart';
+import IndividualMinerRevenueChart from './IndividualMinerRevenueChart/IndividualMinerRevenueChart';
+import classes from './IndividualMinerStats.module.css'
 
 
 const MinerStats = () => {
@@ -18,7 +22,17 @@ const MinerStats = () => {
     }
 
     return (
-        <MinerStatsContainer miner={miner}/>
+        <div className={classes['container']}>
+            <div className={classes['stats-container']}>
+                <IndividualStats miner={miner}/>
+                <IndividualMinerTable miner={miner}/>
+            </div>
+            <div className={classes['chart-container']}>
+                <IndividialMinerHashrateChart/>
+                <IndividualMinerRevenueChart/>
+            </div>
+            
+        </div>
     );
 }
 
