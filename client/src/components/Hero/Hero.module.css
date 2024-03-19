@@ -1,6 +1,6 @@
 
 .hero-container{
-    height: 100vh;
+    height: auto;
     padding-top: 100px;
     padding-left: 250px;
     display: flex;
