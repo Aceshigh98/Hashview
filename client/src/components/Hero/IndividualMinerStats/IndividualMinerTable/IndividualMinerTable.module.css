@@ -1,9 +1,12 @@
 
 
-.table-container{
-    
-    width: 600px;
-    height:250px;
+.table-container {
+    width: 600px; /* or a specific width */
     margin: 20px;
-    background-color: rgb(35,35,32);
-}
+    height: auto; /* or a specific height */
+    overflow-x: auto; /* enables horizontal scrolling if the table exceeds the container width */
+    display: flex;
+    justify-content: center; /* centers the table horizontally */
+    align-items: center; /* centers the table vertically, if you have a specific height */
+  }
+  

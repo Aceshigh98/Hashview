@@ -8,7 +8,7 @@ const IndividualMinerRevenueChart = () => {
 
     var options = {
       chart: {
-        height: 100,
+        height: 280,
         type: "area",
         dropShadow: {
           enabled: true,
@@ -56,7 +56,6 @@ const IndividualMinerRevenueChart = () => {
            options={options}
            series={options.series}
            type="area"
-           width="100%"
            height="auto"
            />
       </div>
