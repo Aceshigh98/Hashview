@@ -18,6 +18,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     minerId: { type: String, required: true },
     workerName: { type: String, required: true },
     status: { type: String, required: true },
+    revenue: {type: Number, required: true},
     lastUpdated: { type: Date, default: Date.now },
     hourlyHashrate: [hashrateSchema],
     dailyHashrate: [hashrateSchema],

@@ -14,13 +14,7 @@ const updateHashrate = async (type) => {
         const workers = data.data.getWorkerDetails.edges;
         const currentTime = getCurrentTimeInCT();
 
-        let userId = '';
-
-        try {
-            userId = "Aceshigh98"; // This needs to be defined or fetched based on your application's logic.
-        } catch (error) {
-            console.log('User is not found');
-        }
+        const userId = "Aceshigh9000"; // This needs to be defined or fetched based on your application's logic.
 
         for (const worker of workers) {
             const node = worker.node;
@@ -33,10 +27,16 @@ const updateHashrate = async (type) => {
                     { username: userId, "miners.minerId": node.minerId },
                     {
                         $set: {
-                            "miners.workerName": node.workerName,
-                            "miners.status": node.status,
-                            "miners.lastUpdated": currentTime,
-                            [`miners.${type}Hashrate`]: { hashrate: node.hashrate, date: currentTime } // Assuming you want to overwrite
+                            "miners.$.workerName": node.workerName,
+                            "miners.$.status": node.status,
+                            "miners.$.lastUpdated": currentTime,
+                            "miners.$.revenue":node.revenue,
+                        },
+                        $push: {
+                            [`miners.$.${type}Hashrate`]: {
+                                hashrate: node.hashrate,
+                                date: currentTime
+                            }
                         }
                     }
                 );
@@ -51,6 +51,7 @@ const updateHashrate = async (type) => {
                                     minerId: node.minerId,
                                     workerName: node.workerName,
                                     status: node.status,
+                                    revenue: node.revenue,
                                     lastUpdated: currentTime,
                                     [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: currentTime }] // Pushing a new hashrate object
                                 }
@@ -66,6 +67,7 @@ const updateHashrate = async (type) => {
                         minerId: node.minerId,
                         workerName: node.workerName,
                         status: node.status,
+                        revenue: node.revenue,
                         lastUpdated: currentTime,
                         [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: currentTime }] // Initialize with the new hashrate object
                     }]
