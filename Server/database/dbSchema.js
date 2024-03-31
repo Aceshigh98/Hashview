@@ -13,12 +13,17 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     hashrate: String,
     date: Date
   }, { _id: false }); // Prevents Mongoose from adding an _id to every hashrate entry
+
+  const revenueSchema = new mongoose.Schema({
+    revenue: Number,
+    date: Date
+  }, { _id: false }); 
   
   const minerSchema = new mongoose.Schema({
     minerId: { type: String, required: true },
     workerName: { type: String, required: true },
     status: { type: String, required: true },
-    revenue: {type: Number, required: true},
+    dailyRevenue: [revenueSchema],
     lastUpdated: { type: Date, default: Date.now },
     hourlyHashrate: [hashrateSchema],
     dailyHashrate: [hashrateSchema],

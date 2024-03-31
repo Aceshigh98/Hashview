@@ -56,7 +56,7 @@ const IndividualMinerRevenueChart = () => {
            options={options}
            series={options.series}
            type="area"
-           height="auto"
+           height={400}
            />
       </div>
     )

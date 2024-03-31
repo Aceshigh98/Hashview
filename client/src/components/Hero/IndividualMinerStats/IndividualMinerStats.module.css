@@ -1,14 +1,18 @@
 
-
 .container {
     display: flex;
-    flex-direction: column;
-    
+    width: 100%;
+    flex-direction: column;    
 }
 
 .chart-container {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     height: auto;
+}
+
+@media screen and (max-width: 1000px) {
+    .chart-container {
+        flex-direction: column; 
+    }   
 }

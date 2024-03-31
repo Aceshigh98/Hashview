@@ -8,7 +8,7 @@ const getCurrentTimeInCT = () => {
     return formatter.format(UTC);
 };
 
-const updateHashrate = async (type) => {
+const updateWorkerDetails = async (type) => {
     try {
         const data = await workerDetails();
         const workers = data.data.getWorkerDetails.edges;
@@ -19,25 +19,46 @@ const updateHashrate = async (type) => {
         for (const worker of workers) {
             const node = worker.node;
 
-            let user = await User.findOne({ username: userId });
+            // Construct the basic update operations for all updates
+            
+            const updateOperations = {
+                $set: {
+                    "miners.$.workerName": node.workerName,
+                    "miners.$.status": node.status,
+                    "miners.$.lastUpdated": currentTime,
+                },
+                $push: {
+                    [`miners.$.${type}Hashrate`]: {
+                        hashrate: node.hashrate,
+                        date: currentTime
+                    }
+                }
+            };
+
+            // Conditionally add dailyRevenue to the update if type is 'daily'
+            if (type === 'daily') {
+                updateOperations.$push['miners.$.dailyRevenue'] = {
+                    revenue: node.revenue,
+                    date: currentTime
+                };
+            }
+
+            
+            
+            
+            
+            
+            const user = await User.findOne({ username: userId });
 
             if (user) {
                 // If user exists, update or add the miner
                 const updateResult = await User.updateOne(
                     { username: userId, "miners.minerId": node.minerId },
+                    updateOperations,
                     {
-                        $set: {
-                            "miners.$.workerName": node.workerName,
-                            "miners.$.status": node.status,
-                            "miners.$.lastUpdated": currentTime,
-                            "miners.$.revenue":node.revenue,
-                        },
-                        $push: {
-                            [`miners.$.${type}Hashrate`]: {
-                                hashrate: node.hashrate,
-                                date: currentTime
-                            }
-                        }
+                        arrayFilters: [{ "miner.minerId": node.minerId }],
+                        upsert: true, // Careful with upsert here as it may not work as expected with arrayFilters without proper initial document structure
+                        new: true
                     }
                 );
 
@@ -51,7 +72,7 @@ const updateHashrate = async (type) => {
                                     minerId: node.minerId,
                                     workerName: node.workerName,
                                     status: node.status,
-                                    revenue: node.revenue,
+                                    dailyRevenue: [{revenue: node.revenue, date: currentTime}],
                                     lastUpdated: currentTime,
                                     [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: currentTime }] // Pushing a new hashrate object
                                 }
@@ -67,13 +88,14 @@ const updateHashrate = async (type) => {
                         minerId: node.minerId,
                         workerName: node.workerName,
                         status: node.status,
-                        revenue: node.revenue,
+                        dailyRevenue: [{revenue: node.revenue, date: currentTime}],
                         lastUpdated: currentTime,
                         [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: currentTime }] // Initialize with the new hashrate object
                     }]
                 });
                 await user.save(); // Save the new user document
             }
+
         }
         console.log(`Updated ${type} hashrate for all miners.`);
     } catch (error) {
@@ -83,5 +105,5 @@ const updateHashrate = async (type) => {
 
 
 
-module.exports = updateHashrate;
+module.exports = updateWorkerDetails;
 

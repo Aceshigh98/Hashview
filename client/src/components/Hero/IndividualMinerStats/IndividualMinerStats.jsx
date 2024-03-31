@@ -12,9 +12,17 @@ const MinerStats = () => {
     const { minerId } = useParams(); // Extract minerId from URL
     const { data } = useContext(DataContext); // Assuming data is an array of miners
 
+
     // Find the specific miner from your data
-    // Assuming your data structure is an array of miner objects
-    const miner = data.find(m => m.minerId === minerId);
+    let miner = null;
+    for (const item of data) {
+        const foundMiner = item.miners.find(m => m.minerId === minerId);
+        if (foundMiner) {
+            miner = foundMiner;
+            break; // Stop searching once we find the miner
+        }
+    }
+
 
     // Check if miner data exists
     if (!miner) {

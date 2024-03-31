@@ -55,6 +55,7 @@ const IndividialMinerChart = () => {
         <ReactApexCharts
          options={options}
          series={options.series}
+         height={400}
          type="area"
          width="100%"
          />

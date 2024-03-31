@@ -6,6 +6,8 @@ import { GrStatusWarning } from "react-icons/gr";
 import { HiIdentification } from "react-icons/hi2";
 
 const MinerStatsContainer = ({miner}) => {
+    
+
   return (
             <div className={classes['stats']}>
                 <h1>Miner Details</h1>

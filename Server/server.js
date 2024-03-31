@@ -31,11 +31,11 @@ app.listen(80, () => {
 // Schedule the hashrate updates
 //cron.schedule('* * * * *', () => console.log('This is a test cron job running every minute.'));
 
-//updateHashrate('hourly');
+updateHashrate('daily');
 
-cron.schedule('* * * * *', () => updateHashrate('hourly')); // Every minute
-cron.schedule('*/2 * * * *', () => updateHashrate('daily')); // Every 2 minutes
-cron.schedule('*/3 * * * *', () => updateHashrate('weekly')); // Every 3 minutes
+//cron.schedule('* * * * *', () => updateHashrate('hourly')); // Every minute
+//cron.schedule('*/2 * * * *', () => updateHashrate('daily')); // Every 2 minutes
+//cron.schedule('*/3 * * * *', () => updateHashrate('weekly')); // Every 3 minutes
 
 
 

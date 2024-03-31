@@ -2,8 +2,7 @@
 .hero-container{
     height: auto;
     padding-top: 100px;
-    padding-left: 250px;
-    padding-right: 250px;
+    margin-left: 250px;
     display: flex;
     width: 100%;
     background-color: black;
