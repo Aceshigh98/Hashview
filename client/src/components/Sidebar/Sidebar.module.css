@@ -1,6 +1,5 @@
 
 .sidebar-container {
-    width: 250px;
     height: 70%;
     margin-top: 80px;
     position: absolute;
@@ -32,7 +31,7 @@
 .sidebar {
     background-color: rgb(240, 186, 51);
     margin-top: 4px;
-    width: 250px;
+    width: 225px;
     height: auto;
     position: absolute;
     top: 0;
@@ -40,6 +39,7 @@
     left: -250px;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
+    box-shadow: 1px 1px 5px white, -1px -1px 5px white;
 }
 
 .sidebar.open {

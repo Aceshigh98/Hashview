@@ -1,10 +1,13 @@
 import React from 'react';
 import classes from './IndividualMinerChart.module.css'
 import ReactApexCharts from 'react-apexcharts';
+import { useContext } from 'react';
 
 const IndividialMinerChart = () => {
 
   //Define options for the chart
+
+  const { data } = useContext(DataContext);
 
   var options = {
     chart: {

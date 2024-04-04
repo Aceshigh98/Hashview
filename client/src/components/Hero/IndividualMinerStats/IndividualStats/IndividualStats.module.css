@@ -3,11 +3,20 @@
    
     color: white;
     position: relative;
-    width: 600px;
+    width: 100%;
     height: auto;
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 
 }
+
+@media screen and (min-width: 1500px) {
+
+    .stats{
+        width: 50%;
+    }
+
+  }
 
 .stats-inner {
     display: grid;
@@ -80,4 +89,6 @@
     opacity: 0.6;
     margin: auto;
 }
+
+
 

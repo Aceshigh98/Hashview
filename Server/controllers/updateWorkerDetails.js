@@ -1,19 +1,14 @@
 const workerDetails = require('../API/luxor.js');
-const User = require('../database/dbSchema.js'); // Assuming this is now the User model
+const User = require('../schemas/minersSchema'); // Assuming this is now the User model
+const getTime = require('../utils/getCurrentTime');
 
-const getCurrentTimeInCT = () => {
-    const UTC = new Date();
-    const options = { timeZone: 'America/Chicago', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-    const formatter = new Intl.DateTimeFormat('en-US', options);
-    return formatter.format(UTC);
-};
+
 
 const updateWorkerDetails = async (type) => {
     try {
         const data = await workerDetails();
         const workers = data.data.getWorkerDetails.edges;
-        const currentTime = getCurrentTimeInCT();
-
+        const time = getTime();
         const userId = "Aceshigh9000"; // This needs to be defined or fetched based on your application's logic.
 
         for (const worker of workers) {
@@ -25,12 +20,12 @@ const updateWorkerDetails = async (type) => {
                 $set: {
                     "miners.$.workerName": node.workerName,
                     "miners.$.status": node.status,
-                    "miners.$.lastUpdated": currentTime,
+                    "miners.$.lastUpdated": time,
                 },
                 $push: {
                     [`miners.$.${type}Hashrate`]: {
                         hashrate: node.hashrate,
-                        date: currentTime
+                        date: time
                     }
                 }
             };
@@ -39,7 +34,7 @@ const updateWorkerDetails = async (type) => {
             if (type === 'daily') {
                 updateOperations.$push['miners.$.dailyRevenue'] = {
                     revenue: node.revenue,
-                    date: currentTime
+                    date: time
                 };
             }
 
@@ -72,9 +67,9 @@ const updateWorkerDetails = async (type) => {
                                     minerId: node.minerId,
                                     workerName: node.workerName,
                                     status: node.status,
-                                    dailyRevenue: [{revenue: node.revenue, date: currentTime}],
-                                    lastUpdated: currentTime,
-                                    [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: currentTime }] // Pushing a new hashrate object
+                                    dailyRevenue: [{revenue: node.revenue, date: time}],
+                                    lastUpdated: time,
+                                    [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: time }] // Pushing a new hashrate object
                                 }
                             }
                         }
@@ -82,18 +77,18 @@ const updateWorkerDetails = async (type) => {
                 }
             } else {
                 // If the user does not exist, create a new document
-                user = new User({
+                const newUser = new User({
                     username: userId,
                     miners: [{
                         minerId: node.minerId,
                         workerName: node.workerName,
                         status: node.status,
-                        dailyRevenue: [{revenue: node.revenue, date: currentTime}],
-                        lastUpdated: currentTime,
-                        [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: currentTime }] // Initialize with the new hashrate object
+                        dailyRevenue: [{revenue: node.revenue, date: time}],
+                        lastUpdated: time,
+                        [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: time }] // Initialize with the new hashrate object
                     }]
                 });
-                await user.save(); // Save the new user document
+                await newUser.save(); // Save the new user document
             }
 
         }

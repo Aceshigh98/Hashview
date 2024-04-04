@@ -1,12 +1,23 @@
 
 
 .table-container {
-    width: 600px; /* or a specific width */
-    margin: 20px;
-    height: auto; /* or a specific height */
-    overflow-x: auto; /* enables horizontal scrolling if the table exceeds the container width */
+    width: 600px;
+    margin-bottom: 20px;
+    height: auto;
+    overflow-x: auto; 
     display: flex;
-    justify-content: center; /* centers the table horizontally */
-    align-items: center; /* centers the table vertically, if you have a specific height */
+    justify-content: center; 
+    align-items: center; 
+    box-shadow: 1px 1px 5px white, -1px -1px 5px white;
+  }
+
+  @media screen and (max-width: 1500px) {
+
+    .table-container {
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
   }
   

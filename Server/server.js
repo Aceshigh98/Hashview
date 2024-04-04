@@ -1,26 +1,23 @@
-const cron = require('node-cron');
+require('./tasks/cronTasks');
+require('dotenv').config();
+
 const cors = require('cors');
 const express = require('express');
-const Schema = require('./database/dbSchema');
-
-// Assuming updateHashrate is a function defined in updateDB.js
-const updateHashrate = require('./scripts/updateDB');
-
-
+const minerDetailsRoute = require('./routes/minersDetailsRoute');
 
 const app = express();
 
 app.use(cors());
+app.use(express.json()); // For parsing application/json
 
-app.get('/api/data', async (req, res) => {
-    try {
-        const data = await Schema.find();
-        res.json(data); 
-    } catch(error) {
-        console.log('Error fetching Data: ', error);
-        res.status(500).json({message: 'Internal server error'})
-    }
-});
+
+//Routes
+app.use('/api/data', minerDetailsRoute); 
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+  });
 
 // Start Server
 app.listen(80, () => {
@@ -28,17 +25,10 @@ app.listen(80, () => {
 });
 
 
-// Schedule the hashrate updates
-//cron.schedule('* * * * *', () => console.log('This is a test cron job running every minute.'));
-
-updateHashrate('daily');
-
-//cron.schedule('* * * * *', () => updateHashrate('hourly')); // Every minute
-//cron.schedule('*/2 * * * *', () => updateHashrate('daily')); // Every 2 minutes
-//cron.schedule('*/3 * * * *', () => updateHashrate('weekly')); // Every 3 minutes
 
 
 
+ 
 
 
 

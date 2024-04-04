@@ -45,7 +45,7 @@ export default function CustomizedTables() {
   return (
     <div className={classes['table-container']}>
       <TableContainer component={Paper}>
-      <Table sx={{ maxWidth: 600, width: '100%', height: 250 }} aria-label="customized table">
+      <Table sx={{ maxWidth: 'auto', width: '100%', height: 250 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Dessert (100g serving)</StyledTableCell>

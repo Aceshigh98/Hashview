@@ -2,8 +2,19 @@
 .hero-container{
     height: auto;
     padding-top: 100px;
-    margin-left: 250px;
+    padding-left: 250px;
+    padding-right: 250px;
     display: flex;
-    width: 100%;
+    width: auto;
     background-color: black;
+}
+
+@media screen and (max-width: 1000px) {
+
+    .hero-container {
+        padding-left: 50px;
+        padding-right: 75px;
+    }
+
+  
 }
