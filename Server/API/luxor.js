@@ -1,14 +1,14 @@
-const axios = require('axios');
-require('dotenv').config();
-
+const axios = require("axios");
+require("dotenv").config();
 
 const apikey = process.env.API_KEY;
 
-const workerDetails = async () => { 
-  
+const workerDetails = async () => {
   try {
-    const response = await axios.post('https://api.luxor.tech/graphql', {
-      query: `
+    const response = await axios.post(
+      "https://api.luxor.tech/graphql",
+      {
+        query: `
       query getWorkerDetails {
         getWorkerDetails(duration: { days: 1 }, mpn: BTC, uname: "aceshigh98", first: 10) {
           edges {
@@ -32,17 +32,19 @@ const workerDetails = async () => {
         }
       }
       `,
-      variables: {
-        duration: { days: 1 },
-        uname: "aceshigh98", // Replace your_username with your actual username
-        first: 10,
+        variables: {
+          duration: { days: 1 },
+          uname: "aceshigh98", // Replace your_username with your actual username
+          first: 10,
+        },
       },
-    }, {
-      headers: {
-        "x-lux-api-key": apikey,
-        "Content-Type": "application/json",
-      },
-    });
+      {
+        headers: {
+          "x-lux-api-key": apikey,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return response.data;
   } catch (error) {
@@ -51,8 +53,3 @@ const workerDetails = async () => {
 };
 
 module.exports = workerDetails;
-
-
-
-  
-   
