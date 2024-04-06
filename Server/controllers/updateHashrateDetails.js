@@ -17,7 +17,7 @@ const updateHashrateDetails = async (type) => {
 
       const updateOperations = {
         $set: {
-          username: userId,
+          userName: userId,
           lastUpdated: time,
         },
 
@@ -25,30 +25,32 @@ const updateHashrateDetails = async (type) => {
       };
 
       updateOperations.$push[`hashrates.$.${type}Hashrate`] = {
-        minerId: node.minerId,
         hashrate: node.hashrate,
         date: time,
       };
 
-      const user = await hashRateModel.findOne({ username: userId });
-
-      console.log(user);
+      const user = await hashRateModel.findOne({ userName: userId });
 
       const updateResult = await hashRateModel.updateOne(
-        { username: userId },
-        updateOperations
+        { userName: userId, "hashrates.minerId": node.minerId },
+        updateOperations,
+        {
+          arrayFilters: [{ "hashrates.minerId": node.hashrate }],
+        }
       );
 
       // If no document was updated (meaning the miner doesn't exist), add the new miner
       if (updateResult.matchedCount === 0) {
         await hashRateModel.updateOne(
-          { username: userId },
+          { userName: userId },
           {
             $push: {
-              [`${type}Hashrate`]: {
+              hashrates: {
                 minerId: node.minerId,
-                hashrate: node.hashrate,
-                date: time,
+                [`${type}Hashrate`]: {
+                  hashrate: node.hashrate,
+                  date: time,
+                },
               },
             },
           }
@@ -59,15 +61,14 @@ const updateHashrateDetails = async (type) => {
 
       if (!user) {
         const newUser = new hashRateModel({
-          username: userId,
+          userName: userId,
           lastUpdated: time,
+
           hashrates: {
-            [`${type}Hashrate`]: [
-              { minerId: node.minerId, hashrate: node.hashrate, date: time },
-            ],
-          }, // Initialize with the new hashrate object],
+            minerId: node.minerId,
+            [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: time }],
+          },
         });
-        console.log("Hashrate-Debug: " + newUser);
         await newUser.save(); // Save the new user document
       }
     }

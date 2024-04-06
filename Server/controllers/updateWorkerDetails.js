@@ -41,7 +41,7 @@ const updateWorkerDetails = async (type) => {
         { userName: userId, "miners.minerId": node.minerId },
         updateOperations,
         {
-          arrayFilters: [{ "miner.minerId": node.hahsrate }],
+          arrayFilters: [{ "miners.minerId": node.hashrate }],
         }
       );
 
