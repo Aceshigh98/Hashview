@@ -1,13 +1,16 @@
+const cors = require("cors");
+const express = require("express");
+const minerDetailsRoute = require("./routes/minersDetailsRoute");
+const minerHashratesRoute = require("./routes/minersHashratesRoute");
+const minerRevenueRoute = require("./routes/minersHashratesRoute");
 
+//Connecting to Mongo Database.
+const connectDB = require("./database/dbConfig");
 
-const cors = require('cors');
-const express = require('express');
-const minerDetailsRoute = require('./routes/minersDetailsRoute');
-const connectDB = require('./database/dbConfig');
-require('./tasks/cronTasks');
+//Scheduled tasks
+require("./tasks/cronTasks");
 
 connectDB(); // Establish the database connection
-
 
 const app = express();
 
@@ -16,28 +19,11 @@ app.use(cors());
 app.use(express.json()); // For parsing application/json
 
 //Routes
-app.use('/api/data', minerDetailsRoute); 
+app.use("/api", minerDetailsRoute);
+app.use("/api", minerHashratesRoute);
+app.use("/api", minerRevenueRoute);
 
 // Start Server
 app.listen(80, () => {
-    console.log('Server is running on port 80.');
+  console.log("Server is running on port 80.");
 });
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-

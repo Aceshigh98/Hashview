@@ -1,19 +1,21 @@
-const cron = require('node-cron');
+const cron = require("node-cron");
 
 // Assuming updateHashrate is a function defined in updateDB.js
 //const updateWorkerDetails = require('./database/updateWorkerDetails');
-const updateHashrateDetails = require('../controllers/updateHashrateDetails');
-const updateWorkerDetails = require('../controllers/updateWorkerDetails');
+const updateHashrateDetails = require("../controllers/updateHashrateDetails");
+const updateWorkerDetails = require("../controllers/updateWorkerDetails");
+const updateRevenueDetails = require("../controllers/updateRevenueDetails");
 
-const controller = (type) => {
-    updateWorkerDetails(type);
-    updateHashrateDetails(type);
-}
+const scheduledTasks = (type) => {
+  //updateWorkerDetails(type);
+  //updateHashrateDetails(type);
+  updateRevenueDetails();
+};
 
 // Schedule the hashrate updates
 //cron.schedule('* * * * *', () => console.log('This is a test cron job running every minute.'));
 
-controller('daily');
+scheduledTasks("weekly");
 
 //cron.schedule('* * * * *', () => updateHashrate('hourly')); // Every minute
 //cron.schedule('*/2 * * * *', () => updateHashrate('daily')); // Every 2 minutes

@@ -2,7 +2,7 @@ const workerDetails = require("../API/luxor.js");
 const minersModel = require("../schemas/minersSchema"); // Assuming this is now the User model
 const getTime = require("../utils/getCurrentTime");
 
-const updateWorkerDetails = async (type) => {
+const updateWorkerDetails = async () => {
   try {
     const data = await workerDetails();
     const workers = data.data.getWorkerDetails.edges;
@@ -15,34 +15,20 @@ const updateWorkerDetails = async (type) => {
       // Construct the basic update operations for all updates
       const updateOperations = {
         $set: {
+          "miners.$.minerId": node.minerId,
           "miners.$.workerName": node.workerName,
           "miners.$.status": node.status,
+          "miners.$.hashrate": node.hashrate,
           "miners.$.lastUpdated": time,
         },
-        $push: {},
       };
-
-      updateOperations.$push[`miners.$.${type}Hashrate`] = {
-        hashrate: node.hashrate,
-        date: time,
-      };
-
-      if (type === "daily") {
-        updateOperations.$push["miners.$.dailyRevenue"] = {
-          revenue: node.revenue,
-          date: time,
-        };
-      }
 
       const user = await minersModel.findOne({ userName: userId });
 
       // If user exists, update or add the miner
       const updateResult = await minersModel.updateOne(
         { userName: userId, "miners.minerId": node.minerId },
-        updateOperations,
-        {
-          arrayFilters: [{ "miners.minerId": node.hashrate }],
-        }
+        updateOperations
       );
 
       // If no document was updated (meaning the miner doesn't exist), add the new miner
@@ -55,9 +41,8 @@ const updateWorkerDetails = async (type) => {
                 minerId: node.minerId,
                 workerName: node.workerName,
                 status: node.status,
-                dailyRevenue: [{ revenue: node.revenue, date: time }],
+                hashrate: node.hashrate,
                 lastUpdated: time,
-                [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: time }],
               },
             },
           }
@@ -73,18 +58,17 @@ const updateWorkerDetails = async (type) => {
               minerId: node.minerId,
               workerName: node.workerName,
               status: node.status,
-              dailyRevenue: [{ revenue: node.revenue, date: time }],
+              hashrate: node.hashrate,
               lastUpdated: time,
-              [`${type}Hashrate`]: [{ hashrate: node.hashrate, date: time }],
             },
           ],
         });
         await newUser.save();
       }
     }
-    console.log(`Updated ${type} hashrate for all miners.`);
+    console.log(`Updated miner details for all miners. `);
   } catch (error) {
-    console.error(`Error updating ${type} hashrate:`, error);
+    console.error(`Error updating miner details: `, error);
   }
 };
 

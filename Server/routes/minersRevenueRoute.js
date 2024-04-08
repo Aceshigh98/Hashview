@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const minersSchema = require("../schemas/minersSchema");
+const revenueSchema = require("../schemas/revenueSchema");
 
-router.get("/minerDetails", async (req, res) => {
+router.get("/dailyrevenue", async (req, res) => {
   try {
-    const data = await minersSchema.find();
+    const data = await revenueSchema.find();
     res.json(data);
   } catch (error) {
     console.log("Error fetching Data: ", error);

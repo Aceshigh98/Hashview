@@ -1,5 +1,5 @@
 const workerDetails = require("../API/luxor.js");
-const hashRateModel = require("../schemas/hashrateSchema"); // Assuming this is now the User model
+const hashRateModel = require("../schemas/hashrateSchema");
 const getTime = require("../utils/getCurrentTime");
 
 const updateHashrateDetails = async (type) => {
@@ -25,8 +25,8 @@ const updateHashrateDetails = async (type) => {
       };
 
       updateOperations.$push[`hashrates.$.${type}Hashrate`] = {
-        hashrate: node.hashrate,
-        date: time,
+        $each: [{ hashrate: node.hashrate, date: time }],
+        $slice: -5,
       };
 
       const user = await hashRateModel.findOne({ userName: userId });
@@ -35,7 +35,7 @@ const updateHashrateDetails = async (type) => {
         { userName: userId, "hashrates.minerId": node.minerId },
         updateOperations,
         {
-          arrayFilters: [{ "hashrates.minerId": node.hashrate }],
+          arrayFilters: [{ "hashrates.minerId": node.minerId }],
         }
       );
 
@@ -48,8 +48,8 @@ const updateHashrateDetails = async (type) => {
               hashrates: {
                 minerId: node.minerId,
                 [`${type}Hashrate`]: {
-                  hashrate: node.hashrate,
-                  date: time,
+                  $each: [{ hashrate: node.hashrate, date: time }],
+                  $slice: -5,
                 },
               },
             },
