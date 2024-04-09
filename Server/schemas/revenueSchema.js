@@ -1,8 +1,15 @@
 const mongoose = require("mongoose");
 
+const revenueSchema = new mongoose.Schema(
+  {
+    revenue: { type: Number },
+  },
+  { _id: false }
+);
+
 const mainSchema = new mongoose.Schema({
   userName: { type: String, unique: true, require: true },
-  revenue: { type: Number },
+  revenues: [revenueSchema],
   lastUpdated: { type: String },
 });
 

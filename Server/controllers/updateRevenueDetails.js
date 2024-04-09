@@ -10,7 +10,10 @@ const updateRevenue = async () => {
     const workers = data.data.getWorkerDetails.edges;
 
     //total revenue pulled in from all miners.
-    let revenue = 0;
+    let revenue = workers.reduce(
+      (acc, { node }) => acc + parseFloat(node.revenue || 0),
+      0
+    );
 
     const updateOperation = {
       $set: {
@@ -20,29 +23,24 @@ const updateRevenue = async () => {
       $push: {},
     };
 
-    updateOperation.$push[revenue] = { revenue };
+    updateOperation.$push["revenues"] = { revenue: revenue };
 
     //iterate through all of the miners daily revenue into one sum.
-    for (worker of workers) {
-      const node = worker.node;
-      revenue += parseFloat(node.revenue);
-    }
 
     const user = await minersRevenueModel.findOne({ userName: userId });
 
-    const updateResult = await minersRevenueModel.updateOne(
-      {
-        userName: userId,
-      },
-      updateOperation
-    );
-
+    if (user) {
+      const updateResult = await minersRevenueModel.updateOne(
+        { userName: userId },
+        updateOperation
+      );
+    }
     // If the user does not exist, create a new document
-    if (!user) {
+    else {
       const newUser = new minersRevenueModel({
         userName: userId,
         lastUpdated: time,
-        revenue: revenue,
+        revenues: [{ revenue }],
       });
       await newUser.save(); // Save the new user document
     }
