@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const hashrate = new mongoose.Schema(
   {
-    hashrate: String,
-    date: Date,
+    hashrate: { type: String },
+    date: { type: String },
   },
   { _id: false }
 ); // Prevents Mongoose from adding an _id to every hashrate entry
@@ -20,7 +20,7 @@ const miners = new mongoose.Schema(
 
 const mainSchema = new mongoose.Schema({
   userName: { type: String },
-  lastUpdated: { type: Date, default: Date.now },
+  lastUpdated: { type: String },
   hashrates: [miners],
 });
 
@@ -31,7 +31,7 @@ mainSchema.pre("save", function (next) {
     ["hourlyHashrate", "dailyHashrate", "weeklyHashrate"].forEach(
       (rateType) => {
         if (miner[rateType] && miner[rateType].length > 5) {
-          miner[rateType] = miner[rateType].slice(-5); // Keep only the last 5 elements
+          miner[rateType] = miner[rateType].slice(-7); // Keep only the last 5 elements
         }
       }
     );

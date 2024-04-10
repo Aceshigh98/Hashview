@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const revenueSchema = new mongoose.Schema(
   {
     revenue: { type: Number },
+    date: { type: String },
   },
   { _id: false }
 );

@@ -7,7 +7,7 @@ const minerDetailSchema = new mongoose.Schema(
     workerName: { type: String },
     status: { type: String },
     hashrate: { type: Number },
-    lastUpdated: { type: Date, default: Date.now },
+    lastUpdated: { type: String },
   },
   { _id: false }
 );

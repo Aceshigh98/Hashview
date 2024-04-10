@@ -23,7 +23,7 @@ const updateRevenue = async () => {
       $push: {},
     };
 
-    updateOperation.$push["revenues"] = { revenue: revenue };
+    updateOperation.$push["revenues"] = { revenue: revenue, date: time };
 
     //iterate through all of the miners daily revenue into one sum.
 

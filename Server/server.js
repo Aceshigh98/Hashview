@@ -2,7 +2,7 @@ const cors = require("cors");
 const express = require("express");
 const minerDetailsRoute = require("./routes/minersDetailsRoute");
 const minerHashratesRoute = require("./routes/minersHashratesRoute");
-const minerRevenueRoute = require("./routes/minersHashratesRoute");
+const minerRevenueRoute = require("./routes/minersRevenueRoute");
 
 //Connecting to Mongo Database.
 const connectDB = require("./database/dbConfig");
