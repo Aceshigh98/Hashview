@@ -13,7 +13,7 @@ export const DataProvider = ({ children }) => {
   const fetchData = async () => {
     try {
       const res = await axios.get("http://localhost:80/api/minerDetails");
-      console.log(res);
+      //console.log(res);
       setData(res.data);
     } catch (error) {
       console.log("Error fetching data", error);

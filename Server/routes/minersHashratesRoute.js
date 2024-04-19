@@ -8,7 +8,7 @@ const userName = "Aceshigh9000";
 
 //Hourly hashrate route.
 
-router.get("/hashrate/:type", async (req, res) => {
+router.get("/hashrate", async (req, res) => {
   try {
     const { type } = req.params; // Extract 'type' from URL parameters
 

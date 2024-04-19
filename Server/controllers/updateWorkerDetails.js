@@ -1,38 +1,68 @@
 const workerDetails = require("../API/luxor.js");
-const minersModel = require("../schemas/minersSchema"); // Assuming this is now the User model
+const minersModel = require("../schemas/minersSchema");
 const getTime = require("../utils/getCurrentTime");
 
-const updateWorkerDetails = async () => {
+const updateWorkerDetails = async (type) => {
   try {
     const data = await workerDetails();
     const workers = data.data.getWorkerDetails.edges;
     const time = getTime();
-    const userId = "Aceshigh9000"; // This needs to be defined or fetched based on your application's logic.
+    const userId = "Aceshigh9000"; // This should be dynamically assigned based on the context.
+
+    // Check if the user exists first to minimize unnecessary operations
+    let user = await minersModel.findOne({ userName: userId });
+    if (!user) {
+      // Create a new user if not found
+      user = new minersModel({
+        userName: userId,
+        miners: [],
+        lastUpdated: time,
+      });
+      await user.save();
+    }
 
     for (const worker of workers) {
       const node = worker.node;
 
-      // Construct the basic update operations for all updates
+      const filter = { userName: userId, "miners.minerId": node.minerId };
       const updateOperations = {
         $set: {
           "miners.$.minerId": node.minerId,
           "miners.$.workerName": node.workerName,
           "miners.$.status": node.status,
-          "miners.$.hashrate": node.hashrate,
-          "miners.$.lastUpdated": time,
+          "miners.$.hahsrate": node.hashrate,
+        },
+        $push: {
+          [`miners.$.hashrateChart.${type}`]: {
+            $each: [{ value: node.hashrate, date: time }],
+            $slice: -5,
+          },
+
+          [`miners.$.revenueTable.${type}`]: {
+            $each: [{ value: node.hashrate, date: time }],
+            $slice: -5,
+          },
+
+          [`miners.$.revenueChart.${type}`]: {
+            $each: [{ value: node.revenue, date: time }],
+            $slice: -5,
+          },
+          // Additional pushes here...
         },
       };
+      const options = {
+        arrayFilters: [{ "miners.minerId": node.minerId }],
+        upsert: false,
+      };
 
-      const user = await minersModel.findOne({ userName: userId });
-
-      // If user exists, update or add the miner
       const updateResult = await minersModel.updateOne(
-        { userName: userId, "miners.minerId": node.minerId },
-        updateOperations
+        filter,
+        updateOperations,
+        options
       );
-
-      // If no document was updated (meaning the miner doesn't exist), add the new miner
+      console.log("Update result for minerId:", node.minerId, updateResult); // Log the outcome of the update
       if (updateResult.matchedCount === 0) {
+        // If no miner was matched, add it to the user's miner array
         await minersModel.updateOne(
           { userName: userId },
           {
@@ -42,33 +72,21 @@ const updateWorkerDetails = async () => {
                 workerName: node.workerName,
                 status: node.status,
                 hashrate: node.hashrate,
-                lastUpdated: time,
+                hashrateChart: {
+                  [type]: [{ value: node.hashrate, date: time }],
+                },
+                revenueChart: { [type]: [{ value: node.revenue, date: time }] },
+                revenueTable: { [type]: [{ value: node.revenue, date: time }] },
               },
             },
           }
         );
       }
-
-      //If no user was found create and save a new user to db.
-      if (!user) {
-        const newUser = new minersModel({
-          userName: userId,
-          miners: [
-            {
-              minerId: node.minerId,
-              workerName: node.workerName,
-              status: node.status,
-              hashrate: node.hashrate,
-              lastUpdated: time,
-            },
-          ],
-        });
-        await newUser.save();
-      }
     }
-    console.log(`Updated miner details for all miners. `);
+
+    console.log("Updated miner details for all miners.");
   } catch (error) {
-    console.error(`Error updating miner details: `, error);
+    console.error("Error updating miner details:", error);
   }
 };
 

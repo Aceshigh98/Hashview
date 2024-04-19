@@ -1,26 +1,59 @@
 const mongoose = require("mongoose");
 
-// Define a schema for the objects inside the miners array
-const minerDetailSchema = new mongoose.Schema(
+const entrySchema = new mongoose.Schema(
+  {
+    value: { type: Number },
+    date: { type: Date },
+  },
+  { _id: false }
+);
+
+const revenueChartValues = new mongoose.Schema(
+  {
+    daily: [entrySchema],
+    weekly: [entrySchema],
+    monthly: [entrySchema],
+  },
+  { _id: false }
+);
+
+const revenueTableValues = new mongoose.Schema(
+  {
+    daily: [entrySchema],
+    weekly: [entrySchema],
+    monthly: [entrySchema],
+  },
+  { _id: false }
+);
+
+const hashrateChartValues = new mongoose.Schema(
+  {
+    daily: [entrySchema],
+    weekly: [entrySchema],
+    monthly: [entrySchema],
+  },
+  { _id: false }
+);
+
+const minerSchema = new mongoose.Schema(
   {
     minerId: { type: String, required: true },
     workerName: { type: String },
     status: { type: String },
     hashrate: { type: Number },
-    lastUpdated: { type: String },
+    revenueTable: revenueTableValues,
+    revenueChart: revenueChartValues,
+    hashrateChart: hashrateChartValues,
   },
   { _id: false }
 );
 
-const minerSchema = new mongoose.Schema({
-  userName: { type: String, unique: true, required: true },
-  miners: [minerDetailSchema], // Use the schema defined above for miners array
-}); // Optional: Prevent Mongoose from adding an _id to every miner if not needed
+const minersDetailsSchema = new mongoose.Schema({
+  userName: { type: String, require: true },
+  miners: [minerSchema],
+  lastUpdated: { type: String },
+});
 
-const minersModel = mongoose.model(
-  "MinerDetails",
-  minerSchema,
-  "miner-details"
-);
+const minersModel = mongoose.model("Miners-Details", minersDetailsSchema);
 
 module.exports = minersModel;

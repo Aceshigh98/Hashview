@@ -20,8 +20,6 @@ app.use(express.json()); // For parsing application/json
 
 //Routes
 app.use("/api", minerDetailsRoute);
-app.use("/api", minerHashratesRoute);
-app.use("/api", minerRevenueRoute);
 
 // Start Server
 app.listen(80, () => {
