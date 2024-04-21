@@ -1,12 +1,14 @@
 const workerDetails = require("../API/luxor.js");
 const minersModel = require("../schemas/minersSchema");
 const getTime = require("../utils/getCurrentTime");
+const getDay = require("../utils/getCurrentDay.js");
 
 const updateWorkerDetails = async (type) => {
   try {
     const data = await workerDetails();
     const workers = data.data.getWorkerDetails.edges;
     const time = getTime();
+    const day = getDay();
     const userId = "Aceshigh9000"; // This should be dynamically assigned based on the context.
 
     // Check if the user exists first to minimize unnecessary operations
@@ -34,17 +36,17 @@ const updateWorkerDetails = async (type) => {
         },
         $push: {
           [`miners.$.hashrateChart.${type}`]: {
-            $each: [{ value: node.hashrate, date: time }],
+            $each: [{ value: node.hashrate, date: day }],
             $slice: -5,
           },
 
           [`miners.$.revenueTable.${type}`]: {
-            $each: [{ value: node.hashrate, date: time }],
+            $each: [{ value: node.hashrate, date: day }],
             $slice: -5,
           },
 
           [`miners.$.revenueChart.${type}`]: {
-            $each: [{ value: node.revenue, date: time }],
+            $each: [{ value: node.revenue, date: day }],
             $slice: -5,
           },
           // Additional pushes here...

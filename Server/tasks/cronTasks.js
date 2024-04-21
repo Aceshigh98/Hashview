@@ -2,9 +2,20 @@ const cron = require("node-cron");
 
 const updateWorkerDetails = require("../controllers/updateWorkerDetails");
 
-updateWorkerDetails("daily");
-updateWorkerDetails("weekly");
-updateWorkerDetails("monthly");
+cron.schedule("15 * * * *", () => {
+  console.log("Running task every hour at 15 minutes past.");
+  updateWorkerDetails("daily");
+});
+
+cron.schedule("30 * * * *", () => {
+  console.log("Running task every hour at 30 minutes past.");
+  updateWorkerDetails("weekly");
+});
+
+cron.schedule("45 * * * *", () => {
+  console.log("Running task every hour at 45 minutes past.");
+  updateWorkerDetails("monthly");
+});
 
 // //Schedule the hashrate updates
 // //Set to run at every hour throught the day.

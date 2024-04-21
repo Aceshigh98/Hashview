@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const entrySchema = new mongoose.Schema(
   {
     value: { type: Number },
-    date: { type: Date },
+    date: { type: String },
   },
   { _id: false }
 );
