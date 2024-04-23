@@ -11,11 +11,16 @@ import Paper from "@mui/material/Paper";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.common.white,
+    color: "#828da2",
+    textAlign: "center",
+    width: "auto",
+    fontSize: "x-large",
+    fontWeight: "bold",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    width: "auto",
   },
 }));
 
@@ -24,7 +29,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     backgroundColor: theme.palette.action.hover,
   },
   "&:last-child td, &:last-child th": {
-    border: 0,
+    borderBottom: "20px",
   },
 }));
 
@@ -34,7 +39,7 @@ const IndividualMinerTable = ({ miner }) => {
   }
 
   const renderNestedTable = (items) => (
-    <Table size="large">
+    <Table size="small" sx={{ width: "auto" }}>
       <TableBody>
         {items.map((item, index) => (
           <StyledTableRow key={index}>
@@ -46,12 +51,25 @@ const IndividualMinerTable = ({ miner }) => {
                 flexDirection: "column",
                 textAlign: "center",
                 width: "auto",
-                fontSize: "x-large",
+                height: "auto",
                 fontWeight: "bold",
+                color: "#828da2",
               }}
             >
               Date: {item.date}
-              <br />
+            </StyledTableCell>
+            <StyledTableCell
+              component="th"
+              scope="row"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "center",
+                width: "auto",
+                height: "auto",
+                fontWeight: "bold",
+              }}
+            >
               Hashrate: {(item.value / 1e12).toFixed(2)} TH/s
             </StyledTableCell>
           </StyledTableRow>
@@ -64,41 +82,18 @@ const IndividualMinerTable = ({ miner }) => {
     <div className={classes["table-container"]}>
       <TableContainer component={Paper}>
         <Table
-          sx={{ maxWidth: "auto", width: "100%", height: 250 }}
+          sx={{
+            maxWidth: "auto",
+            width: "100%",
+            height: 250,
+          }}
           aria-label="customized table"
         >
           <TableHead>
             <TableRow>
-              <StyledTableCell
-                sx={{
-                  textAlign: "center",
-                  width: "auto",
-                  fontSize: "x-large",
-                  fontWeight: "bold",
-                }}
-              >
-                Daily Hashrate
-              </StyledTableCell>
-              <StyledTableCell
-                sx={{
-                  textAlign: "center",
-                  width: "auto",
-                  fontSize: "x-large",
-                  fontWeight: "bold",
-                }}
-              >
-                Weekly Hashrate
-              </StyledTableCell>
-              <StyledTableCell
-                sx={{
-                  textAlign: "center",
-                  width: "auto",
-                  fontSize: "x-large",
-                  fontWeight: "bold",
-                }}
-              >
-                Monthly Hashrate
-              </StyledTableCell>
+              <StyledTableCell>Daily Hashrate</StyledTableCell>
+              <StyledTableCell>Weekly Hashrate</StyledTableCell>
+              <StyledTableCell>Monthly Hashrate</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./IndividualMinerChart.module.css";
 import ReactApexCharts from "react-apexcharts";
-//import { useContext } from "react";
 
-const IndividialMinerChart = ({ miner }) => {
-  //Define options for the chart
+const IndividualMinerChart = ({ miner }) => {
+  const [activeTab, setActiveTab] = useState("daily");
+  const [dates, setDates] = useState([]);
+  const [data, setData] = useState([]);
 
-  //const { data } = useContext(DataContext);
+  const THDivider = 1000000000000;
 
-  var options = {
+  useEffect(() => {
+    const setMinerData = (tab) => {
+      // Check if the necessary data properties are available and in the correct format
+      if (miner) {
+        const hashrates = miner.hashrateChart[tab].map((item) =>
+          (item.value / THDivider).toFixed(2)
+        );
+        const dates = miner.hashrateChart[tab].map((item) => item.date);
+
+        setData(hashrates);
+        setDates(dates);
+      } else {
+        console.error("Invalid or incomplete data for miner.hashrateChart");
+        // Optionally set empty arrays to avoid rendering with old state
+        setData([]);
+        setDates([]);
+      }
+    };
+
+    setMinerData(activeTab);
+  }, [miner, activeTab]); // Dependencies to only rerun on changes to miner or activeTab
+
+  const options = {
     chart: {
       height: 280,
       type: "area",
@@ -19,14 +42,19 @@ const IndividialMinerChart = ({ miner }) => {
         blur: 3,
         opacity: 0.5,
       },
+      toolbar: {
+        show: false, // Hides the toolbar
+      },
     },
     dataLabels: {
       enabled: false,
     },
     series: [
       {
-        name: "Series 1",
-        data: [45, 52, 38, 45, 19, 23, 2],
+        name: `${
+          activeTab.charAt(0).toUpperCase() + activeTab.slice(1)
+        } Hashrate`,
+        data: data,
         color: "#f0ba33",
       },
     ],
@@ -40,19 +68,37 @@ const IndividialMinerChart = ({ miner }) => {
       },
     },
     xaxis: {
-      categories: [
-        "01 Jan",
-        "02 Jan",
-        "03 Jan",
-        "04 Jan",
-        "05 Jan",
-        "06 Jan",
-        "07 Jan",
-      ],
+      categories: dates,
     },
   };
+
+  // Ensure not to render the component until valid data is available
+  if (!miner || !miner.hashrateChart || !miner.hashrateChart[activeTab]) {
+    return <div>Loading or Invalid data...</div>;
+  }
+
   return (
     <div className={classes["container"]}>
+      <div className={classes["tabs"]}>
+        <button
+          onClick={() => setActiveTab("daily")}
+          className={activeTab === "daily" ? classes["active"] : ""}
+        >
+          Daily Hashrate
+        </button>
+        <button
+          onClick={() => setActiveTab("weekly")}
+          className={activeTab === "weekly" ? classes["active"] : ""}
+        >
+          Weekly Hashrate
+        </button>
+        <button
+          onClick={() => setActiveTab("monthly")}
+          className={activeTab === "monthly" ? classes["active"] : ""}
+        >
+          Monthly Hashrate
+        </button>
+      </div>
       <ReactApexCharts
         options={options}
         series={options.series}
@@ -64,4 +110,4 @@ const IndividialMinerChart = ({ miner }) => {
   );
 };
 
-export default IndividialMinerChart;
+export default IndividualMinerChart;

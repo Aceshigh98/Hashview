@@ -10,6 +10,7 @@
     align-items: center; 
     box-shadow: 1px 1px 5px white, -1px -1px 5px white;
     color: black;
+    border-radius: 2rem;
   }
 
   @media screen and (max-width: 1500px) {
@@ -22,3 +23,11 @@
 
   }
   
+
+  #hashrate-p{
+    height: auto;
+  }
+
+  #date-p{
+    height: 20px;
+  }
