@@ -80,7 +80,7 @@ const IndividualMinerTable = ({ miner }) => {
 
   return (
     <div className={classes["table-container"]}>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ zIndex: 2 }}>
         <Table
           sx={{
             maxWidth: "auto",
