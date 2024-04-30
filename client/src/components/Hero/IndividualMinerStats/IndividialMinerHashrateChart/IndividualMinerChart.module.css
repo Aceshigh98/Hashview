@@ -8,6 +8,43 @@
     box-shadow: 1px 1px 5px white, -1px -1px 5px white;
 }
 
+.tabs {
+    width: auto;
+    margin: 1px;
+}
+
+@keyframes shadow-emerge {
+    from {
+        box-shadow: none;
+    }
+    to {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.tabs button {
+    background-color: #000000;
+    color: white;
+    margin: 6px;
+    padding: 8px;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s; /* Smooth background color transition if needed */
+}
+
+.tabs button:hover {
+    animation: shadow-emerge 0.5s forwards;
+}
+
+
+.active {
+    background: linear-gradient(to bottom, #F0BA33, #000000); 
+    color: white; 
+    
+  }
+
 @media screen and (max-width: 1500px) {
 
     .container {
