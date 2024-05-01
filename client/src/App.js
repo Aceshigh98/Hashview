@@ -1,5 +1,6 @@
 import React from "react";
 import MainLayout from "./layouts/MainLayout.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
 import Hero from "./components/Hero/Hero.jsx";
 import IndividualMinerStats from "./components/Hero/IndividualMinerStats/IndividualMinerStats.jsx";
 import MainMinerStats from "./components/Hero/MainMinerStats/MainMinerStats.jsx";
@@ -23,6 +24,7 @@ function App() {
                 path="/Miner/:minerId"
                 element={<IndividualMinerStats />}
               />
+              <Route path="/About" element={<AboutPage />} />
             </Route>
           </Routes>
         </MainLayout>
