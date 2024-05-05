@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Navbar.module.css";
+import image from "../../assets/logo.png";
 import { IoMdInformationCircle } from "react-icons/io";
 import { CgWebsite } from "react-icons/cg";
 import { TbLogout2 } from "react-icons/tb";
@@ -10,7 +11,8 @@ const Navbar = () => {
   return (
     <section className={classes["container"]}>
       <div className={classes["title"]}>
-        <h3> Miner Dashboard</h3>
+        <h3>HashView</h3>
+        <img alt="logo" src={image} className={classes["title-img"]}></img>
       </div>
 
       <div className={classes["icon-container"]}>
