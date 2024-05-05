@@ -1,12 +1,29 @@
-import React, { useState, useContext } from "react";
-import { DataContext } from "../../../API/data";
+import React, { useState, useEffect } from "react";
 import { IoMdMenu } from "react-icons/io";
 import classes from "./Sidebar.module.css";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const data = useContext(DataContext);
+  const [minerIds, setMinerIds] = useState([]);
+  const [minerNames, setMinerNames] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const minerIds = await axios.get("http://localhost:80/api/minersIds");
+      const minerNames = await axios.get(
+        "http://localhost:80/api/minersWorkerNames"
+      );
+      const response = await Promise.all([minerIds, minerNames]);
+      const dataIds = response[0].data; // Change this line
+      const dataNames = response[1].data; // Change this line
+      setMinerIds(dataIds);
+      setMinerNames(dataNames);
+    };
+
+    fetchData();
+  }, []);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -23,18 +40,13 @@ const Sidebar = () => {
             <h1>Home</h1>
           </Link>
         </div>
-        {data.data.map((user, userIndex) =>
-          user.miners.map((miner, minerIndex) => (
-            <div
-              key={`${userIndex}-${minerIndex}`}
-              className={classes["name-container"]}
-            >
-              <Link to={`/Miner/${miner.minerId}`}>
-                <h1>Miner: {miner.workerName}</h1>
-              </Link>
-            </div>
-          ))
-        )}
+        {minerIds.map((minerId, index) => (
+          <div key={index} className={classes["name-container"]}>
+            <Link to={`/Miner/${minerId}`}>
+              <h1>Miner: {minerNames[index]}</h1>
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
   );

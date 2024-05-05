@@ -1,18 +1,19 @@
-import React, {useContext} from 'react'
-
-import { DataContext } from '../../../API/data';
+import React from "react";
+import Title from "../../ui/Title/Title";
+import TotalHashrateChart from "./TotalHashrateChart/TotalHashrateChart";
+import TotalRevenueChart from "./TotalRevenueChart/TotalRevenueChart";
+import classes from "./MainMinerStats.module.css";
 
 const MainMinerStats = () => {
-
-  const { data } = useContext(DataContext);
-
-  const miners = data.data; 
-
-
   return (
-    <div>MainMinerStats
+    <div className={classes.container}>
+      <Title />
+      <div className={classes["chart-container"]}>
+        <TotalHashrateChart />
+        <TotalRevenueChart />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default MainMinerStats
+export default MainMinerStats;

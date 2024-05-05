@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DataContext } from "../../../API/data";
+import axios from "axios";
 import IndividualStats from "./IndividualStats/IndividualStats";
 import IndividualMinerTable from "./IndividualMinerTable/IndividualMinerTable";
 import IndividialMinerHashrateChart from "./IndividialMinerHashrateChart/IndividialMinerChart";
@@ -9,17 +9,21 @@ import classes from "./IndividualMinerStats.module.css";
 
 const MinerStats = () => {
   const { minerId } = useParams(); // Extract minerId from URL
-  const { data } = useContext(DataContext); // Assuming data is an array of miners
 
-  // Find the specific miner from your data
-  let miner = null;
-  for (const item of data) {
-    const foundMiner = item.miners.find((m) => m.minerId === minerId);
-    if (foundMiner) {
-      miner = foundMiner;
-      break; // Stop searching once we find the miner
-    }
-  }
+  const [miner, setMiner] = useState(null);
+
+  useEffect(() => {
+    const fetchMiner = async () => {
+      const response = await axios.get(
+        `http://localhost:80/api/minerDetails/${minerId}`
+      );
+      const data = response.data; // Change this line
+      console.log(data);
+      setMiner(data);
+    };
+
+    fetchMiner();
+  }, [minerId]); // Add minerId as a dependency
 
   // Check if miner data exists
   if (!miner) {
