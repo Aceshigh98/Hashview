@@ -1,7 +1,15 @@
 const workerDetails = require("../API/luxor.js");
-const minersModel = require("../schemas/minersSchema");
-const getTime = require("../utils/getCurrentTime");
+const minersModel = require("../models/minersSchema.js");
+const getTime = require("../utils/getCurrentTime.js");
 const getDay = require("../utils/getCurrentDay.js");
+
+/*Here's a brief overview of what this function does:
+
+Fetches worker details from an external API.
+Checks if a user with a specific userId exists in the database.
+If the user doesn't exist, it creates a new user.
+For each worker, it updates the worker's details in the user's miners array in the database.
+If a worker with a specific minerId doesn't exist in the user's miners array, it adds a new miner to the array.*/
 
 const updateWorkerDetails = async (type) => {
   try {

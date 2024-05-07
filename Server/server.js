@@ -1,8 +1,6 @@
 const cors = require("cors");
 const express = require("express");
-const minerDetailsRoute = require("./routes/minersDetailsRoute");
-const minerHashratesRoute = require("./routes/minersHashratesRoute");
-const minerRevenueRoute = require("./routes/minersRevenueRoute");
+const minersRoute = require("./routes/minersRoute");
 
 //Connecting to Mongo Database.
 const connectDB = require("./database/dbConfig");
@@ -19,7 +17,7 @@ app.use(cors());
 app.use(express.json()); // For parsing application/json
 
 //Routes
-app.use("/api", minerDetailsRoute);
+app.use("/api", minersRoute);
 
 // Start Server
 app.listen(80, () => {

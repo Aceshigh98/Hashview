@@ -1,6 +1,6 @@
 const cron = require("node-cron");
 
-const updateWorkerDetails = require("../controllers/updateWorkerDetails");
+const updateWorkerDetails = require("../service/updateWorkerDetails");
 
 cron.schedule("15 * * * *", () => {
   console.log("Running task every hour at 15 minutes past.");
