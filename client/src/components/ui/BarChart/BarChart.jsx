@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./BarChart.module.css";
 import ReactApexCharts from "react-apexcharts";
 
-const BarChart = ({ data }) => {
-  // Ensure not to render the component until valid data is available
-  if (!data) {
-    return <div>Loading or Invalid data...</div>;
-  }
+const BarChart = (props) => {
+  const [data, setData] = useState(null);
+
+  const dates = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
+
+  useEffect(() => {
+    // Check if the necessary data properties are available and in the correct format
+    if (props) {
+      console.log(props.props);
+      setData(props);
+    } else {
+      console.error("Invalid or incomplete data for props");
+      // Optionally set empty arrays to avoid rendering with old state
+      setData([]);
+    }
+  }, []);
 
   const options = {
     chart: {
       height: 280,
-      type: "area",
+      type: "bar",
       dropShadow: {
         enabled: true,
         top: 0,
@@ -20,7 +31,7 @@ const BarChart = ({ data }) => {
         opacity: 0.5,
       },
       toolbar: {
-        show: false, // Hides the toolbar
+        show: true, // Hides the toolbar
       },
     },
     dataLabels: {
@@ -29,7 +40,7 @@ const BarChart = ({ data }) => {
     series: [
       {
         name: "Hashrate",
-        data: data,
+        data: data ? data : [], // Ensure data is an array
         color: "#f0ba33",
       },
     ],
@@ -43,7 +54,7 @@ const BarChart = ({ data }) => {
       },
     },
     xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May"],
+      categories: dates,
     },
   };
 
