@@ -2,12 +2,10 @@ import React from "react";
 import classes from "./TotalHashrateChart.module.css";
 import BarChart from "../../../ui/BarChart/BarChart";
 
-const TotalHashrateChart = (props) => {
-  const data = props;
-
+const TotalHashrateChart = ({ props }) => {
   return (
     <div className={classes["container"]}>
-      <BarChart props={data}></BarChart>
+      <BarChart props={props}></BarChart>
     </div>
   );
 };

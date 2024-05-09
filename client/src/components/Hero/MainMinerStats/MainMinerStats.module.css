@@ -7,3 +7,14 @@
     color: white;
     z-index: 0;
 }
+
+.chart-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

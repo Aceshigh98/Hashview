@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import classes from "./BarChart.module.css";
 import ReactApexCharts from "react-apexcharts";
 
-const BarChart = (props) => {
+const BarChart = ({ props }) => {
   const [data, setData] = useState(null);
 
   const dates = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
@@ -10,14 +10,13 @@ const BarChart = (props) => {
   useEffect(() => {
     // Check if the necessary data properties are available and in the correct format
     if (props) {
-      console.log(props.props);
       setData(props);
     } else {
       console.error("Invalid or incomplete data for props");
       // Optionally set empty arrays to avoid rendering with old state
       setData([]);
     }
-  }, []);
+  }, []); // Add an empty array as the second argument to the useEffect hook
 
   const options = {
     chart: {
@@ -31,16 +30,17 @@ const BarChart = (props) => {
         opacity: 0.5,
       },
       toolbar: {
-        show: true, // Hides the toolbar
+        show: false, // Hides the toolbar
       },
     },
     dataLabels: {
       enabled: false,
+      colors: ["#304758"],
     },
     series: [
       {
         name: "Hashrate",
-        data: data ? data : [], // Ensure data is an array
+        data: data, // Ensure data is an array
         color: "#f0ba33",
       },
     ],
@@ -69,7 +69,7 @@ const BarChart = (props) => {
         options={options}
         series={options.series}
         height={400}
-        type="area"
+        type="bar" // Change the chart type to "bar"
         width="100%"
       />
     </div>
