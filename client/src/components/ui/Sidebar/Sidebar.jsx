@@ -36,7 +36,7 @@ const Sidebar = () => {
       <IoMdMenu onClick={toggleSidebar} className={classes["menu-icon"]} />
       <div className={`${classes.sidebar} ${classes[sidebarClass]}`}>
         <div className={classes["name-container"]}>
-          <Link to={`../MainMinerStats`}>
+          <Link to={`/Home`}>
             <h1>Home</h1>
           </Link>
         </div>

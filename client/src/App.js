@@ -17,7 +17,7 @@ function App() {
       <MainLayout>
         <Routes>
           <Route path="/" element={<Hero />}>
-            <Route path="/MainMinerStats" element={<MainMinerStats />} />
+            <Route path="/Home" element={<MainMinerStats />} />
             <Route path="/Miner/:minerId" element={<IndividualMinerStats />} />
             <Route path="/About" element={<AboutPage />} />
           </Route>
