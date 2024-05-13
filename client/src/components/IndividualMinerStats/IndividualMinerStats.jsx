@@ -18,7 +18,6 @@ const MinerStats = () => {
         `http://localhost:80/api/minerDetails/${minerId}`
       );
       const data = response.data; // Change this line
-      console.log(data);
       setMiner(data);
     };
 

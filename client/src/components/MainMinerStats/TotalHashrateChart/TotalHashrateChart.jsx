@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./TotalHashrateChart.module.css";
-import BarChart from "../../../ui/BarChart/BarChart";
+import BarChart from "../../ui/BarChart/BarChart";
 
 const TotalHashrateChart = ({ props }) => {
   return (

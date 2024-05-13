@@ -1,11 +1,11 @@
 import React from "react";
 import classes from "./Navbar.module.css";
-import image from "../../assets/logo.png";
+import image from "../../../assets/logo.png";
 import { IoMdInformationCircle } from "react-icons/io";
 import { CgWebsite } from "react-icons/cg";
 import { TbLogout2 } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import Divider from "../ui/Divider/Divider";
+import Divider from "../../ui/Divider/Divider";
 
 const Navbar = () => {
   return (

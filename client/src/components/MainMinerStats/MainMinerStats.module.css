@@ -1,11 +1,14 @@
 
-.container {
-    display: flex;
+.container{
     width: 100%;
-    flex-direction: column;    
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    color: white;
+    z-index: 0;
 }
 
-.chart-container {
+.chart-container{
     display: flex;
     flex-direction: row;
     height: auto;

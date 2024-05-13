@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Title from "../../ui/Title/Title";
+import Title from "../ui/Title/Title";
 import TotalHashrateChart from "./TotalHashrateChart/TotalHashrateChart";
 import TotalRevenueChart from "./TotalRevenueChart/TotalRevenueChart";
 import OverallStats from "./OverallStats/OverallStats";

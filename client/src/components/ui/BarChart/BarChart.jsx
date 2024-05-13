@@ -20,30 +20,26 @@ const BarChart = ({ props }) => {
 
   const options = {
     chart: {
-      height: 280,
+      height: "auto",
       type: "bar",
-      dropShadow: {
-        enabled: true,
-        top: 0,
-        left: 0,
-        blur: 3,
-        opacity: 0.5,
-      },
       toolbar: {
         show: false, // Hides the toolbar
       },
     },
+    grid: {
+      show: false, // Hide grid lines
+    },
     dataLabels: {
       enabled: false,
-      colors: ["#304758"],
     },
     series: [
       {
         name: "Hashrate",
         data: data, // Ensure data is an array
-        color: "#f0ba33",
+        color: "#FFFFFF",
       },
     ],
+
     fill: {
       type: "gradient",
       gradient: {
@@ -53,8 +49,40 @@ const BarChart = ({ props }) => {
         stops: [0, 90, 100],
       },
     },
+
+    plotOptions: {
+      bar: {
+        borderRadius: 5, // Rounded corners
+        horizontal: false,
+        columnWidth: "40%",
+      },
+    },
     xaxis: {
       categories: dates,
+      labels: {
+        show: false,
+      },
+      axisBorder: {
+        show: false, // Hide the x-axis border
+      },
+      axisTicks: {
+        show: false, // Hide the x-axis ticks
+      },
+      show: false, // Completely hide the x-axis
+    },
+
+    yaxis: {
+      labels: {
+        style: {
+          colors: ["#FFFFFF"], // Change y-axis label colors
+          fontSize: "12px",
+          fontWeight: "700",
+        },
+      },
+    },
+
+    tooltip: {
+      theme: "dark", // Set the tooltip theme to dark
     },
   };
 
@@ -68,7 +96,7 @@ const BarChart = ({ props }) => {
       <ReactApexCharts
         options={options}
         series={options.series}
-        height={400}
+        height="auto"
         type="bar" // Change the chart type to "bar"
         width="100%"
       />

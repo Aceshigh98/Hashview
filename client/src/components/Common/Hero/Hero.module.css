@@ -1,13 +1,11 @@
 
 .hero-container{
     height: auto;
+    width: auto;
     padding-top: 100px;
     padding-left: 250px;
     padding-right: 250px;
-    display: flex;
-    width: auto;
-    background-color: black;
-    z-index: 20;
+    z-index: 1000;
 }
 
 @media screen and (max-width: 1000px) {
@@ -15,6 +13,7 @@
     .hero-container {
         padding-left: 50px;
         padding-right: 75px;
+        width: 100%;
     }
 
   

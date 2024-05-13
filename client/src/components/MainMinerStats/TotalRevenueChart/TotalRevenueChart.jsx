@@ -1,5 +1,5 @@
 import React from "react";
-import BarChart from "../../../ui/BarChart/BarChart";
+import BarChart from "../../ui/BarChart/BarChart";
 import classes from "./TotalRevenueChart.module.css";
 
 const TotalRevenueChart = ({ props }) => {

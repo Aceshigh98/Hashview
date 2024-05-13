@@ -1,12 +1,12 @@
-import React from "react";
-import MainLayout from "./layouts/MainLayout.jsx";
-import AboutPage from "./pages/AboutPage.jsx";
-import Hero from "./components/Hero/Hero.jsx";
-import IndividualMinerStats from "./components/Hero/IndividualMinerStats/IndividualMinerStats.jsx";
-import MainMinerStats from "./components/Hero/MainMinerStats/MainMinerStats.jsx";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { World } from "./util/globe.jsx"; // Import the World component
 import "./App.css"; // Make sure to create and import App.css for styling
+import MainLayout from "./layouts/MainLayout.jsx";
+
+const HomePage = lazy(() => import("./pages/HomePage.jsx"));
+const AboutPage = lazy(() => import("./pages/AboutPage.jsx"));
+const MinersPage = lazy(() => import("./pages/MinersPage.jsx"));
 
 function App() {
   return (
@@ -14,15 +14,15 @@ function App() {
       <div className="globeBackground">
         <World />
       </div>
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<Hero />}>
-            <Route path="/Home" element={<MainMinerStats />} />
-            <Route path="/Miner/:minerId" element={<IndividualMinerStats />} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <MainLayout>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/Miner/:minerId" element={<MinersPage />} />
             <Route path="/About" element={<AboutPage />} />
-          </Route>
-        </Routes>
-      </MainLayout>
+          </Routes>
+        </MainLayout>
+      </Suspense>
     </Router>
   );
 }

@@ -34,15 +34,15 @@ const Sidebar = () => {
   return (
     <div className={classes["sidebar-container"]}>
       <IoMdMenu onClick={toggleSidebar} className={classes["menu-icon"]} />
-      <div className={`${classes.sidebar} ${classes[sidebarClass]}`}>
+      <div className={`${classes[sidebarClass]} ${classes["sidebar"]} `}>
         <div className={classes["name-container"]}>
-          <Link to={`/Home`}>
+          <Link to={`/`} onClick={toggleSidebar}>
             <h1>Home</h1>
           </Link>
         </div>
         {minerIds.map((minerId, index) => (
           <div key={index} className={classes["name-container"]}>
-            <Link to={`/Miner/${minerId}`}>
+            <Link to={`/Miner/${minerId}`} onClick={toggleSidebar}>
               <h1>Miner: {minerNames[index]}</h1>
             </Link>
           </div>

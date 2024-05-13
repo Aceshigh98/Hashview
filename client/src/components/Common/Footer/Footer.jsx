@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Footer.module.css";
-import Divider from "../ui/Divider/Divider";
+import Divider from "../../ui/Divider/Divider";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 
