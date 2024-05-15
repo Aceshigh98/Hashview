@@ -69,6 +69,23 @@ const IndividualMinerRevenueChart = ({ miner }) => {
     },
     xaxis: {
       categories: dates,
+      labels: {
+        show: true,
+        style: {
+          colors: Array(dates.length).fill("#FFFFFF"), // Change x-axis label colors
+          fontSize: "12px",
+          fontWeight: "700",
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: ["#FFFFFF"], // Change y-axis label colors
+          fontSize: "14px",
+          fontWeight: "750",
+        },
+      },
     },
   };
 

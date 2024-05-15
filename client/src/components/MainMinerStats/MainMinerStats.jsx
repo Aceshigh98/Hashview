@@ -12,7 +12,7 @@ const MainMinerStats = () => {
   const stats = {
     totalHashrate: [400, 500, 600, 700, 800],
     totalRevenue: [400, 500, 600, 700, 900],
-    totalRevenueInDollars: [400, 500, 600, 700, 400],
+    totalDollarRevenue: [400, 500, 600, 700, 800],
     dates: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
   };
 
@@ -31,8 +31,14 @@ const MainMinerStats = () => {
         <OverallStats props={stats} />
       </div>
       <div className={classes["chart-container"]}>
-        <TotalHashrateChart props={stats.totalHashrate} />
-        <TotalRevenueChart props={stats.totalRevenue} />
+        <TotalHashrateChart
+          totalHashrate={stats.totalHashrate}
+          dates={stats.dates}
+        />
+        <TotalRevenueChart
+          totalRevenue={stats.totalRevenue}
+          dates={stats.dates}
+        />
       </div>
     </section>
   );

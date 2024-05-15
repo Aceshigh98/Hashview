@@ -1,11 +1,13 @@
 import React from "react";
-import BarChart from "../../ui/BarChart/BarChart";
+import LineChart from "../../ui/LineChart/LineChart";
 import classes from "./TotalRevenueChart.module.css";
 
-const TotalRevenueChart = ({ props }) => {
+const TotalRevenueChart = (props) => {
   return (
     <div className={classes["container"]}>
-      <BarChart props={props}></BarChart>;
+      <div className={classes["chart-container"]}>
+        <LineChart {...props} />
+      </div>
     </div>
   );
 };

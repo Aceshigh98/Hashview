@@ -67,8 +67,26 @@ const IndividualMinerChart = ({ miner }) => {
         stops: [0, 90, 100],
       },
     },
+
+    yaxis: {
+      labels: {
+        style: {
+          colors: "#FFFFFF", // Change y-axis label color
+          fontSize: "12px",
+          fontWeight: "700",
+        },
+      },
+    },
     xaxis: {
       categories: dates,
+      labels: {
+        show: true,
+        style: {
+          colors: Array(dates.length).fill("#FFFFFF"), // Change x-axis label colors
+          fontSize: "12px",
+          fontWeight: "700",
+        },
+      },
     },
   };
 

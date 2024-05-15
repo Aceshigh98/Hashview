@@ -1,41 +1,36 @@
 import React, { useState, useEffect } from "react";
 import ReactApexCharts from "react-apexcharts";
 
-const BarChart = ({ totalHashrate, dates }) => {
-  const [data, setData] = useState(null);
+const BarChart = ({ totalRevenue, dates }) => {
+  const [btcRevenue, setBtcRevenue] = useState(null);
   const [datesArray, setDates] = useState([]);
 
   useEffect(() => {
     // Check if the necessary data properties are available and in the correct format
-    if (totalHashrate && dates) {
-      setData(totalHashrate);
+    if (totalRevenue && dates) {
+      setBtcRevenue(totalRevenue);
       setDates(dates);
     } else {
       console.error("Invalid or incomplete data for props");
       // Optionally set empty arrays to avoid rendering with old state
-      setData([]);
+      setBtcRevenue([]);
+      setDates([]);
     }
-  }, [totalHashrate, dates]); // Add totalHashrate and dates as dependencies
+  }, [dates, totalRevenue]); // Add an empty array as the second argument to the useEffect hook
 
   const options = {
     chart: {
       height: "auto",
-      type: "bar",
+      type: "area",
       toolbar: {
         show: false, // Hides the toolbar
       },
     },
-    grid: {
-      show: false, // Hide grid lines
-    },
-    dataLabels: {
-      enabled: false,
-    },
     series: [
       {
-        name: "Hashrate",
-        data: data, // Ensure data is an array
-        color: "#FFFFFF",
+        name: "Revenue",
+        data: btcRevenue, // Ensure data is an array
+        color: "#000000",
       },
     ],
 
@@ -49,15 +44,18 @@ const BarChart = ({ totalHashrate, dates }) => {
       },
     },
 
-    plotOptions: {
-      bar: {
-        borderRadius: 10, // Rounded corners
-        horizontal: false,
-        columnWidth: "40%",
+    grid: {
+      borderColor: "#FFFFFF", // Customize grid line color if needed
+      strokeDashArray: 8, // Set the dash array to make the lines dotted
+      xaxis: {
+        lines: {
+          show: false, // Hide vertical grid lines
+        },
       },
     },
+
     xaxis: {
-      categories: datesArray, // Ensure datesArray is an array of strings
+      categories: datesArray,
       labels: {
         show: true,
         style: {
@@ -65,12 +63,6 @@ const BarChart = ({ totalHashrate, dates }) => {
           fontSize: "12px",
           fontWeight: "700",
         },
-      },
-      axisBorder: {
-        show: false, // Hide the x-axis border
-      },
-      axisTicks: {
-        show: true, // Hide the x-axis ticks
       },
     },
 
@@ -90,7 +82,7 @@ const BarChart = ({ totalHashrate, dates }) => {
   };
 
   // Ensure not to render the component until valid data is available
-  if (!data) {
+  if (!btcRevenue || !datesArray) {
     return <div>Loading or Invalid data...</div>;
   }
 
@@ -99,7 +91,7 @@ const BarChart = ({ totalHashrate, dates }) => {
       options={options}
       series={options.series}
       height="100%"
-      type="bar" // Change the chart type to "bar"
+      type="area" // Change the chart type to "bar"
       width="100%"
     />
   );
