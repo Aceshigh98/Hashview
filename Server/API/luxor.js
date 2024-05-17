@@ -3,14 +3,14 @@ require("dotenv").config();
 
 const apikey = process.env.API_KEY;
 
-const workerDetails = async () => {
+const workerDetails = async (userName, key) => {
   try {
     const response = await axios.post(
       "https://api.luxor.tech/graphql",
       {
         query: `
-      query getWorkerDetails {
-        getWorkerDetails(duration: { days: 1 }, mpn: BTC, uname: "aceshigh98", first: 10) {
+      query getWorkerDetails($uname: String!) {
+        getWorkerDetails(duration: { days: 1 }, mpn: BTC, uname: $uname, first: 10) {
           edges {
             node {
               minerId
@@ -33,19 +33,16 @@ const workerDetails = async () => {
       }
       `,
         variables: {
-          duration: { days: 1 },
-          uname: "aceshigh98", // Replace your_username with your actual username
-          first: 10,
+          uname: userName,
         },
       },
       {
         headers: {
-          "x-lux-api-key": apikey,
+          "x-lux-api-key": key,
           "Content-Type": "application/json",
         },
       }
     );
-
     return response.data;
   } catch (error) {
     throw error;

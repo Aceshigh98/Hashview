@@ -1,34 +1,43 @@
+// scheduler.js
 const cron = require("node-cron");
-
+const getUserCredentials = require("../service/luxorUserData");
 const updateWorkerDetails = require("../service/updateWorkerDetails");
 
-cron.schedule("15 * * * *", () => {
-  console.log("Running task every hour at 15 minutes past.");
-  updateWorkerDetails("daily");
-});
+const tasks = async () => {
+  try {
+    const userCredentials = await getUserCredentials();
+    // Execute the task immediately for all users
+    for (const credentials of userCredentials) {
+      await updateWorkerDetails("daily", credentials);
+    }
+    // Schedule the task to run every hour at 15, 30, and 45 minutes past
+    cron.schedule("15 * * * *", () => {
+      for (const credentials of userCredentials) {
+        console.log("Running task every hour at 15 minutes past.");
+        updateWorkerDetails("daily", credentials);
+      }
+    });
 
-cron.schedule("30 * * * *", () => {
-  console.log("Running task every hour at 30 minutes past.");
-  updateWorkerDetails("weekly");
-});
+    // Schedule the task to run every hour at 30 minutes past
 
-cron.schedule("45 * * * *", () => {
-  console.log("Running task every hour at 45 minutes past.");
-  updateWorkerDetails("monthly");
-});
+    cron.schedule("30 * * * *", () => {
+      for (const credentials of userCredentials) {
+        console.log("Running task every hour at 30 minutes past.");
+        updateWorkerDetails("weekly", credentials);
+      }
+    });
 
-// //Schedule the hashrate updates
-// //Set to run at every hour throught the day.
-// cron.schedule("0 * * * *", () => updateHashrateDetails("hourly"));
-// //Set to run at 12:30 PM once a day.
-// cron.schedule("30 12 * * *", () => updateHashrateDetails("daily"));
-// //Set to run at 12:30 AM every Sunday.
-// cron.schedule("30 0  * * 0", () => updateHashrateDetails("weekly"));
+    // Schedule the task to run every hour at 45 minutes past
 
-// // Schedule the worker details updates
-// //Set to run at 12:45AM once a day.
-// cron.schedule(" 45 0 * * *", () => updateWorkerDetails()); // Every 2 minutes
+    cron.schedule("45 * * * *", () => {
+      for (const credentials of userCredentials) {
+        console.log("Running task every hour at 45 minutes past.");
+        updateWorkerDetails("monthly", credentials);
+      }
+    });
+  } catch (error) {
+    console.error("Error setting up cron jobs:", error);
+  }
+};
 
-// // // Schedule the revenue updates
-// //Set to run at 12:45 PM once a day.
-// cron.schedule(" 45 12 * * *", () => updateRevenueDetails()); // Every 2 minutes
+module.exports = tasks;

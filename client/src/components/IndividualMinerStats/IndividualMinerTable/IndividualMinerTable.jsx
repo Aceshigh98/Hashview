@@ -34,7 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const IndividualMinerTable = ({ miner }) => {
-  if (!miner || !miner.revenueTable) {
+  if (!miner || !miner.hashrateTable) {
     return <div>No data available</div>;
   }
 
@@ -99,13 +99,13 @@ const IndividualMinerTable = ({ miner }) => {
           <TableBody>
             <StyledTableRow>
               <StyledTableCell>
-                {renderNestedTable(miner.revenueTable.daily)}
+                {renderNestedTable(miner.hashrateTable.daily)}
               </StyledTableCell>
               <StyledTableCell>
-                {renderNestedTable(miner.revenueTable.weekly)}
+                {renderNestedTable(miner.hashrateTable.weekly)}
               </StyledTableCell>
               <StyledTableCell>
-                {renderNestedTable(miner.revenueTable.monthly)}
+                {renderNestedTable(miner.hashrateTable.monthly)}
               </StyledTableCell>
             </StyledTableRow>
           </TableBody>

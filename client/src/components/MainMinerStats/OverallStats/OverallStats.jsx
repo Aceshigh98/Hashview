@@ -37,7 +37,7 @@ const OverallStats = ({ props }) => {
             : 0
         }
         Image={FaDollarSign}
-        tag={" $"}
+        tag={" "}
       />
     </div>
   );

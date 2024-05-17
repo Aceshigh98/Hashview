@@ -17,7 +17,7 @@ const revenueChartValues = new mongoose.Schema(
   { _id: false }
 );
 
-const revenueTableValues = new mongoose.Schema(
+const hashrateTableValues = new mongoose.Schema(
   {
     daily: [entrySchema],
     weekly: [entrySchema],
@@ -41,7 +41,7 @@ const minerSchema = new mongoose.Schema(
     workerName: { type: String },
     status: { type: String },
     hashrate: { type: Number },
-    revenueTable: revenueTableValues,
+    hashrateTable: hashrateTableValues,
     revenueChart: revenueChartValues,
     hashrateChart: hashrateChartValues,
   },

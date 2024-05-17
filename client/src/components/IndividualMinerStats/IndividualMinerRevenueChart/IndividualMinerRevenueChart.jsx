@@ -7,18 +7,14 @@ const IndividualMinerRevenueChart = ({ miner }) => {
   const [dates, setDates] = useState([]);
   const [data, setData] = useState([]);
 
-  const THDivider = 1000000000000;
-
   useEffect(() => {
     const setMinerData = (tab) => {
       // Check if the necessary data properties are available and in the correct format
       if (miner) {
-        const hashrates = miner.hashrateChart[tab].map((item) =>
-          (item.value / THDivider).toFixed(2)
-        );
-        const dates = miner.hashrateChart[tab].map((item) => item.date);
+        const revenue = miner.revenueChart[tab].map((item) => item.value);
+        const dates = miner.revenueChart[tab].map((item) => item.date);
 
-        setData(hashrates);
+        setData(revenue);
         setDates(dates);
       } else {
         console.error("Invalid or incomplete data for miner.hashrateChart");
@@ -90,7 +86,7 @@ const IndividualMinerRevenueChart = ({ miner }) => {
   };
 
   // Ensure not to render the component until valid data is available
-  if (!miner || !miner.hashrateChart || !miner.hashrateChart[activeTab]) {
+  if (!miner || !miner.revenueChart || !miner.revenueChart[activeTab]) {
     return <div>Loading or Invalid data...</div>;
   }
 
