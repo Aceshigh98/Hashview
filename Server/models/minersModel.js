@@ -51,6 +51,8 @@ const minerSchema = new mongoose.Schema(
 const minersDetailsSchema = new mongoose.Schema({
   userName: { type: String, require: true },
   miners: [minerSchema],
+  totalHashrate: [entrySchema],
+  totalRevenue: [entrySchema],
   lastUpdated: { type: String },
 });
 

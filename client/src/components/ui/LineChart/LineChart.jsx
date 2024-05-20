@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ReactApexCharts from "react-apexcharts";
 
-const BarChart = ({ totalRevenue, dates }) => {
+const BarChart = ({ values, dates }) => {
   const [btcRevenue, setBtcRevenue] = useState(null);
   const [datesArray, setDates] = useState([]);
 
   useEffect(() => {
     // Check if the necessary data properties are available and in the correct format
-    if (totalRevenue && dates) {
-      setBtcRevenue(totalRevenue);
+    if (values && dates) {
+      setBtcRevenue(values);
       setDates(dates);
     } else {
       console.error("Invalid or incomplete data for props");
@@ -16,14 +16,16 @@ const BarChart = ({ totalRevenue, dates }) => {
       setBtcRevenue([]);
       setDates([]);
     }
-  }, [dates, totalRevenue]); // Add an empty array as the second argument to the useEffect hook
+  }, [dates, values]); // Add an empty array as the second argument to the useEffect hook
 
   const options = {
     chart: {
       height: "auto",
       type: "area",
+
       toolbar: {
-        show: false, // Hides the toolbar
+        autoSelected: "pan",
+        show: false,
       },
     },
     series: [
@@ -33,6 +35,10 @@ const BarChart = ({ totalRevenue, dates }) => {
         color: "#000000",
       },
     ],
+
+    stroke: {
+      curve: "straight",
+    },
 
     fill: {
       type: "gradient",
@@ -44,9 +50,14 @@ const BarChart = ({ totalRevenue, dates }) => {
       },
     },
 
+    markers: {
+      size: 5, // Hide the point tags
+    },
+
     grid: {
       borderColor: "#FFFFFF", // Customize grid line color if needed
       strokeDashArray: 8, // Set the dash array to make the lines dotted
+      clipMarkers: false,
       xaxis: {
         lines: {
           show: false, // Hide vertical grid lines
@@ -66,6 +77,10 @@ const BarChart = ({ totalRevenue, dates }) => {
       },
     },
 
+    dataLabels: {
+      enabled: false,
+    },
+
     yaxis: {
       labels: {
         style: {
@@ -78,6 +93,9 @@ const BarChart = ({ totalRevenue, dates }) => {
 
     tooltip: {
       theme: "dark", // Set the tooltip theme to dark
+      marker: {
+        show: false,
+      },
     },
   };
 

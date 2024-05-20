@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import ReactApexCharts from "react-apexcharts";
 
-const BarChart = ({ totalHashrate, dates }) => {
+const BarChart = ({ values, dates }) => {
   const [data, setData] = useState(null);
   const [datesArray, setDates] = useState([]);
 
   useEffect(() => {
     // Check if the necessary data properties are available and in the correct format
-    if (totalHashrate && dates) {
-      setData(totalHashrate);
+    if (values && dates) {
+      setData(values);
       setDates(dates);
     } else {
       console.error("Invalid or incomplete data for props");
       // Optionally set empty arrays to avoid rendering with old state
       setData([]);
     }
-  }, [totalHashrate, dates]); // Add totalHashrate and dates as dependencies
+  }, [values, dates]); // Add values and dates as dependencies
 
   const options = {
     chart: {

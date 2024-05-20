@@ -3,7 +3,15 @@
 const userModel = require("../models/userModel");
 
 const loginUser = async (req, res) => {
-  res.json({ messg: "Signup User" });
+  const { userName, password } = req.body;
+
+  try {
+    const user = await userModel.login(userName, password);
+    res.status(200).json({ userName, user });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error.message });
+  }
 };
 
 //signup user

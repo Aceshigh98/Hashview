@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
-const luxorVerify = require("../Test/testLuxor");
+const luxorVerify = require("../utils/testLuxor.js");
 
 const userSchema = new mongoose.Schema({
   userName: { type: String, required: true },

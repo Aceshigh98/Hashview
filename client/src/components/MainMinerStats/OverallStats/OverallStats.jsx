@@ -13,7 +13,10 @@ const OverallStats = ({ props }) => {
         type={"Hashrate"}
         value={
           props.totalHashrate && props.totalHashrate.length > 0
-            ? props.totalHashrate[props.totalHashrate.length - 1]
+            ? (
+                props.totalHashrate[props.totalHashrate.length - 1].value /
+                1000000000000
+              ).toFixed(2)
             : 0
         }
         Image={IoMdSpeedometer}
@@ -23,7 +26,7 @@ const OverallStats = ({ props }) => {
         type={"Daily Bitcoin Revenue"}
         value={
           props.totalRevenue && props.totalRevenue.length > 0
-            ? props.totalRevenue[props.totalRevenue.length - 1]
+            ? props.totalRevenue[props.totalRevenue.length - 1].value.toFixed(8)
             : 0
         }
         Image={FaBitcoin}
@@ -33,7 +36,9 @@ const OverallStats = ({ props }) => {
         type={"Daily USD Revenue"}
         value={
           props.totalDollarRevenue && props.totalDollarRevenue.length > 0
-            ? props.totalDollarRevenue[props.totalDollarRevenue.length - 1]
+            ? props.totalDollarRevenue[
+                props.totalDollarRevenue.length - 1
+              ].value.toFixed(2)
             : 0
         }
         Image={FaDollarSign}

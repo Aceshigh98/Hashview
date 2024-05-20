@@ -1,7 +1,8 @@
-const minersSchema = require("../models/minersSchema");
+const minersSchema = require("../models/minersModel.js");
 
 // This should be dynamically assigned based on the context.
-const userName = "Aceshigh9000";
+
+const userName = "bannana";
 
 //Get Miner based off of MinerId
 const fetchMiner = async (req, res) => {
@@ -19,6 +20,7 @@ const fetchMiner = async (req, res) => {
 //Get all miners Ids
 const fetchMinersId = async (req, res) => {
   try {
+    //const { userName } = req.params;
     const user = await minersSchema.findOne({ userName: userName });
     const minerIds = user.miners.map((miner) => miner.minerId);
     res.json(minerIds);
