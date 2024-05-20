@@ -6,7 +6,7 @@ import { FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <section className={classes["footer-container"]}>
+    <footer className={classes["footer-container"]}>
       <Divider />
       <div className={classes["title"]}>
         <p>© 2024, made by Aceshigh. Mining Statistics Dashboard.</p>
@@ -21,7 +21,7 @@ const Footer = () => {
           <a href="https://github.com/Aceshigh98/Mining-Dashboard">LinkedIn</a>
         </div>
       </div>
-    </section>
+    </footer>
   );
 };
 

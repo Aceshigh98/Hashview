@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Card.module.css";
+import { FaDollarSign } from "react-icons/fa";
 
 const Card = ({ type, value, Image, tag }) => {
   return (
@@ -7,8 +8,9 @@ const Card = ({ type, value, Image, tag }) => {
       <h3>{type}</h3>
       <Image className={classes["icon"]} />
       <h1>
+        {tag === "$" ? tag : ""}
         {value}
-        {tag}
+        {tag !== "$" ? tag : ""}
       </h1>
     </div>
   );

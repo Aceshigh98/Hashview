@@ -32,7 +32,7 @@ const Sidebar = () => {
   const sidebarClass = isOpen ? "open" : "close";
 
   return (
-    <div className={classes["sidebar-container"]}>
+    <aside className={classes["sidebar-container"]}>
       <IoMdMenu onClick={toggleSidebar} className={classes["menu-icon"]} />
       <div className={`${classes[sidebarClass]} ${classes["sidebar"]} `}>
         <div className={classes["name-container"]}>
@@ -48,7 +48,7 @@ const Sidebar = () => {
           </div>
         ))}
       </div>
-    </div>
+    </aside>
   );
 };
 

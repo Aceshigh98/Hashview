@@ -9,7 +9,7 @@ import Divider from "../../ui/Divider/Divider";
 
 const Navbar = () => {
   return (
-    <section className={classes["container"]}>
+    <header className={classes["container"]}>
       <div className={classes["title"]}>
         <h3>HashView</h3>
         <img alt="logo" src={image} className={classes["title-img"]}></img>
@@ -32,7 +32,7 @@ const Navbar = () => {
         </div>
       </div>
       <Divider />
-    </section>
+    </header>
   );
 };
 

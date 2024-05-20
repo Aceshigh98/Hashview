@@ -3,9 +3,9 @@ import classes from "./Hero.module.css";
 
 const Hero = ({ children }) => {
   return (
-    <div className={classes["hero-container"]}>
+    <main className={classes["hero-container"]}>
       <div>{children}</div>
-    </div>
+    </main>
   );
 };
 

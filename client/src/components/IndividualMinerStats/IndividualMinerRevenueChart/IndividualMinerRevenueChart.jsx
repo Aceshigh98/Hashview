@@ -49,7 +49,7 @@ const IndividualMinerRevenueChart = ({ miner }) => {
       {
         name: `${
           activeTab.charAt(0).toUpperCase() + activeTab.slice(1)
-        } Hashrate`,
+        } Revenue`,
         data: data,
         color: "#f0ba33",
       },

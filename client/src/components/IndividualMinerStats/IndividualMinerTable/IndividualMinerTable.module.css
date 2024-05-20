@@ -10,7 +10,7 @@
     align-items: center; 
     box-shadow: 1px 1px 5px white, -1px -1px 5px white;
     color: black;
-    border-radius: 2rem;
+    border-radius: 0.5rem;
   }
 
   @media screen and (max-width: 1500px) {

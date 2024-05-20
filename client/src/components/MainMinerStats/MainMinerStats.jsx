@@ -7,6 +7,7 @@ import OverallStats from "./OverallStats/OverallStats";
 import classes from "./MainMinerStats.module.css";
 
 const MainMinerStats = () => {
+  // Use the useState hook to create a state variable and a function to update it
   const [stats, setStats] = useState({
     userName: "",
     totalHashrate: [],
@@ -15,36 +16,47 @@ const MainMinerStats = () => {
   });
 
   useEffect(() => {
-    axios
-      .get("http://localhost:80/api/minersDetails")
-      .then((res) => res.data)
-      .then((data) => {
-        console.log(data);
+    const fetchMinerDetails = async () => {
+      try {
+        // Fetch miner details
+        const minerDetailsResponse = await axios.get(
+          "http://localhost:80/api/minersDetails"
+        );
+        const minerDetailsData = minerDetailsResponse.data;
 
-        setStats({
-          totalHashrate: data.totalHashrate,
-          totalRevenue: data.totalRevenue,
-        });
-        axios
-          .get("http://api.aceshighbitcoin.com/API_DATA")
-          .then((res) => res.data)
-          .then((data) => {
-            console.log(data.btcData.price);
-            console.log(stats.totalRevenue[stats.totalRevenue.length - 1]);
-            setStats({
-              ...stats,
-              totalDollarRevenue:
-                data.btcData.price *
-                stats.totalRevenue[stats.totalRevenue.length - 1],
-            });
-          });
-      });
+        setStats((prevStats) => ({
+          ...prevStats,
+          totalHashrate: minerDetailsData.totalHashrate,
+          totalRevenue: minerDetailsData.totalRevenue,
+          userName: minerDetailsData.userName,
+        }));
 
-    console.log(stats);
+        // Fetch BTC data
+        const btcDataResponse = await axios.get(
+          "http://api.aceshighbitcoin.com/API_DATA"
+        );
+        const btcData = btcDataResponse.data;
+        // Calculate total dollar revenue
+        const lastTotalRevenue =
+          minerDetailsData.totalRevenue[
+            minerDetailsData.totalRevenue.length - 1
+          ].value;
+        // Update the state variable with the new data
+        setStats((prevStats) => ({
+          ...prevStats,
+          totalDollarRevenue: btcData.btcData.price * lastTotalRevenue,
+        }));
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    fetchMinerDetails();
   }, []);
+
+  // Check if the necessary data properties are available and in the correct format
   return (
-    <div className={classes["container"]}>
-      <Title username={stats.userNAme} />
+    <div className={classes.container}>
+      <Title username={stats.userName} />
       <div className={classes["stats-container"]}>
         <OverallStats props={stats} />
       </div>

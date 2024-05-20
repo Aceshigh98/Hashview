@@ -2,12 +2,15 @@ import React from "react";
 import classes from "./Title.module.css";
 
 // This should be dynamically assigned based on the context.
-const user = "Aceshigh98";
 
-const Title = () => {
+const Title = ({ username }) => {
+  console.log("Title -> username" + username);
+
   return (
     <div className={classes["container"]}>
-      <h1 className={classes["title-h1"]}>Hello {user},</h1>
+      <div className={classes["sub-container"]}>
+        <h1 className={classes["title-h1"]}>Hello {username},</h1>
+      </div>
       <div className={classes["sub-container"]}>
         <h3 className={classes["title-h3"]}>Welcome to HashView.</h3>
       </div>
