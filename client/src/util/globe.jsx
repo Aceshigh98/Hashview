@@ -23,7 +23,7 @@ function Globe() {
   return <primitive object={globe} />;
 }
 
-function World() {
+function WorldComponent() {
   const scene = new Scene();
   const camera = new PerspectiveCamera(60, aspect, 0.5, 1000);
   camera.position.set(0, 0, cameraZ);
@@ -48,5 +48,7 @@ function World() {
     </Canvas>
   );
 }
+
+const World = React.memo(WorldComponent);
 
 export { World };

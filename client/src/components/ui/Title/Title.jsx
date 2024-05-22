@@ -4,8 +4,6 @@ import classes from "./Title.module.css";
 // This should be dynamically assigned based on the context.
 
 const Title = ({ username }) => {
-  console.log("Title -> username" + username);
-
   return (
     <div className={classes["container"]}>
       <div className={classes["sub-container"]}>

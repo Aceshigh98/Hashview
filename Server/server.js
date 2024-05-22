@@ -14,9 +14,8 @@ connectDB(); // Establish the database connection
 
 const app = express();
 
-app.use(cors());
-
 app.use(express.json()); // For parsing application/json
+app.use(cors());
 
 //Routes
 app.use("/api", minersRoutes);

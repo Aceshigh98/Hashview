@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import axios from "axios";
 import IndividualStats from "./IndividualStats/IndividualStats";
 import IndividualMinerTable from "./IndividualMinerTable/IndividualMinerTable";
@@ -8,21 +9,40 @@ import IndividualMinerRevenueChart from "./IndividualMinerRevenueChart/Individua
 import classes from "./IndividualMinerStats.module.css";
 
 const MinerStats = () => {
+  // Get user from AuthContext
+  const { user } = useAuthContext();
   const { minerId } = useParams(); // Extract minerId from URL
-
   const [miner, setMiner] = useState(null);
+  const navigate = useNavigate(); // Get the navigate function
 
   useEffect(() => {
+    // Check if the user is logged in
+    if (!user) {
+      navigate("/login"); // Redirect to login page if not logged in
+      return;
+    }
+    // Fetch miner data
     const fetchMiner = async () => {
-      const response = await axios.get(
-        `http://localhost:80/api/minerDetails/${minerId}`
-      );
-      const data = response.data; // Change this line
-      setMiner(data);
+      try {
+        const response = await axios.post(
+          `http://localhost:80/api/minerDetails/${minerId}`,
+          {
+            userName: user.userName,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setMiner(response.data);
+      } catch (err) {
+        console.error("Error fetching miner data:", err);
+      }
     };
 
     fetchMiner();
-  }, [minerId]); // Add minerId as a dependency
+  }, [minerId, user, navigate]); // Add minerId as a dependency and user
 
   // Check if miner data exists
   if (!miner) {

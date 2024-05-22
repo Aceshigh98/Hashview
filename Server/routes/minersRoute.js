@@ -6,14 +6,18 @@ const {
   fetchMiner,
   fetchMinersWorkerNames,
 } = require("../controllers/minerController");
+const requireAuth = require("../middleware/requireAuth");
+
+// Middleware to parse JSON bodies
+router.use(requireAuth);
 
 // Get miner details by ID
-router.get("/minerDetails/:id", fetchMiner);
+router.post("/minerDetails/:id", fetchMiner);
 // Get all miners details
-router.get("/minersDetails", fetchMinersDetails);
+router.post("/minersDetails", fetchMinersDetails);
 // Get all miners IDs
-router.get("/minersIds", fetchMinersId);
+router.post("/minersIds", fetchMinersId);
 //get all miners Worker Names
-router.get("/minersWorkerNames", fetchMinersWorkerNames);
+router.post("/minersWorkerNames", fetchMinersWorkerNames);
 
 module.exports = router;

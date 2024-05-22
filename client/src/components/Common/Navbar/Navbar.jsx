@@ -6,8 +6,15 @@ import { CgWebsite } from "react-icons/cg";
 import { TbLogout2 } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import Divider from "../../ui/Divider/Divider";
+import { useLogout } from "../../../hooks/useLogout";
 
 const Navbar = () => {
+  const { logout } = useLogout();
+
+  const handleClick = () => {
+    logout();
+  };
+
   return (
     <header className={classes["container"]}>
       <div className={classes["title"]}>
@@ -26,9 +33,9 @@ const Navbar = () => {
           <CgWebsite className={classes["icon"]} />
           <a href="https://github.com/Aceshigh98/Miner-Dashboard">Porfolio</a>
         </div>
-        <div className={classes["icon-subcontainer"]}>
+        <div onClick={handleClick} className={classes["icon-subcontainer"]}>
           <TbLogout2 className={classes["icon"]} />
-          <a href="https://github.com/Aceshigh98/Miner-Dashboard">Logout</a>
+          <Link to="/login">Logout</Link>
         </div>
       </div>
       <Divider />

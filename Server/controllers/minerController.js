@@ -2,12 +2,15 @@ const minersSchema = require("../models/minersModel.js");
 
 // This should be dynamically assigned based on the context.
 
-const userName = "bannana";
-
 //Get Miner based off of MinerId
 const fetchMiner = async (req, res) => {
   try {
     const { id } = req.params;
+    const { userName } = req.body;
+    // Ensure userName is provided
+    if (!userName) {
+      return res.status(400).json({ message: "Username is required" });
+    }
     const user = await minersSchema.findOne({ userName: userName });
     const miner = user.miners.find((miner) => miner.minerId === id);
     res.json(miner);
@@ -20,7 +23,11 @@ const fetchMiner = async (req, res) => {
 //Get all miners Ids
 const fetchMinersId = async (req, res) => {
   try {
-    //const { userName } = req.params;
+    const { userName } = req.body;
+    // Ensure userName is provided
+    if (!userName) {
+      return res.status(400).json({ message: "Username is required" });
+    }
     const user = await minersSchema.findOne({ userName: userName });
     const minerIds = user.miners.map((miner) => miner.minerId);
     res.json(minerIds);
@@ -33,6 +40,11 @@ const fetchMinersId = async (req, res) => {
 //get all miners Worker Names
 const fetchMinersWorkerNames = async (req, res) => {
   try {
+    const { userName } = req.body;
+    // Ensure userName is provided
+    if (!userName) {
+      return res.status(400).json({ message: "Username is required" });
+    }
     const user = await minersSchema.findOne({ userName: userName });
     const minerWorkerNames = user.miners.map((miner) => miner.workerName);
     res.json(minerWorkerNames);
@@ -45,6 +57,11 @@ const fetchMinersWorkerNames = async (req, res) => {
 //Get all miners details
 const fetchMinersDetails = async (req, res) => {
   try {
+    const { userName } = req.body;
+    // Ensure userName is provided
+    if (!userName) {
+      return res.status(400).json({ message: "Username is required" });
+    }
     const allDetails = await minersSchema.findOne({ userName: userName });
     res.json(allDetails);
   } catch (error) {

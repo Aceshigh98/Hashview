@@ -5,12 +5,12 @@ import { FaBitcoin } from "react-icons/fa";
 import { IoMdSpeedometer } from "react-icons/io";
 import { FaDollarSign } from "react-icons/fa";
 
-const OverallStats = ({ props }) => {
+const OverallStats = ({ stats }) => {
   const {
     totalHashrate = [],
     totalRevenue = [],
     totalDollarRevenue = 0,
-  } = props;
+  } = stats;
 
   const hashrateValue =
     totalHashrate.length > 0
