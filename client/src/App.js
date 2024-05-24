@@ -1,25 +1,47 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
 import "./App.css"; // Make sure to create and import App.css for styling
 import MainLayout from "./layouts/MainLayout.jsx";
 import LoginPage from "./pages/Login/LoginPage.jsx";
 import SignupPage from "./pages/Signup/SignupPage.jsx";
-
-const HomePage = lazy(() => import("./pages/HomePage.jsx"));
+import HomePage from "./pages/HomePage.jsx";
+import MinersPage from "./pages/MinersPage.jsx";
 const AboutPage = lazy(() => import("./pages/AboutPage.jsx"));
-const MinersPage = lazy(() => import("./pages/MinersPage.jsx"));
 
 function App() {
+  const { user } = useAuthContext();
+
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
+          <Route
+            path="/login"
+            element={!user ? <LoginPage /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/signup"
+            element={!user ? <SignupPage /> : <Navigate to="/" />}
+          />
           <Route element={<MainLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/Miner/:minerId" element={<MinersPage />} />
-            <Route path="/About" element={<AboutPage />} />
+            <Route
+              path="/"
+              element={user ? <HomePage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/Miner/:minerId"
+              element={user ? <MinersPage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/About"
+              element={user ? <AboutPage /> : <Navigate to="/login" />}
+            />
           </Route>
         </Routes>
       </Suspense>

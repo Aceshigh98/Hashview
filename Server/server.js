@@ -17,9 +17,10 @@ const app = express();
 app.use(express.json()); // For parsing application/json
 app.use(cors());
 
-//Routes
-app.use("/api", minersRoutes);
+//Unprotected Routes... Login and Signup
 app.use("/api/user", userRoutes);
+//Protected Routes ... Miners Data and User Data
+app.use("/api/data", minersRoutes);
 
 // Start Server
 app.listen(80, () => {

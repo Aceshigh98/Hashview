@@ -25,7 +25,7 @@ const MinerStats = () => {
     const fetchMiner = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:80/api/minerDetails/${minerId}`,
+          `http://localhost:80/api/data/minerDetails/${minerId}`,
           {
             userName: user.userName,
           },

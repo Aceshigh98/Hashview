@@ -3,15 +3,16 @@ import classes from "./LoginPage.module.css";
 import { World } from "../../util/globe"; // Import the World component
 import { useLogin } from "../../hooks/useLogin"; // Import the useLogin hook
 import image from "../../assets/logo.png";
+
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const { login, error, loading } = useLogin(); // Use the useLogin hook
 
+  // Handle the form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
+    e.preventDefault(); // Prevent the default form submission
     await login(username, password); // Call the login function from the useLogin hook
   };
 

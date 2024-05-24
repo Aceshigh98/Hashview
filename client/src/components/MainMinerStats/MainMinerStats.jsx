@@ -11,8 +11,6 @@ const MainMinerStats = () => {
   // Get user from AuthContext
   const { user } = useAuthContext();
 
-  console.log("user", user);
-
   // Use the useState hook to create a state variable and a function to update it
   const [stats, setStats] = useState({
     userName: "",
@@ -22,16 +20,11 @@ const MainMinerStats = () => {
   });
 
   useEffect(() => {
-    // Check if the user is logged in
-    if (!user) {
-      console.error("Please log in");
-      return;
-    }
     const fetchMinerDetails = async () => {
       try {
         // Fetch miner details
         const minerDetailsResponse = await axios.post(
-          "http://localhost:80/api/minersDetails",
+          "http://localhost:80/api/data/minersDetails",
           {
             userName: user.userName,
           },
@@ -51,10 +44,26 @@ const MainMinerStats = () => {
         }));
 
         // Fetch BTC data
+        const options = {
+          headers: {
+            accept: "application/json",
+          },
+        };
+
+        // Fetch the current price of BTC
         const btcDataResponse = await axios.get(
-          "http://api.aceshighbitcoin.com/API_DATA"
+          "https://api.coingecko.com/api/v3/coins/markets",
+          {
+            ...options,
+            params: {
+              vs_currency: "usd",
+              ids: "bitcoin",
+            },
+          }
         );
-        const btcData = btcDataResponse.data;
+        // Extract the current price of BTC
+        const btcData = btcDataResponse.data[0].current_price;
+
         // Calculate total dollar revenue
         const lastTotalRevenue =
           minerDetailsData.totalRevenue[
@@ -63,7 +72,7 @@ const MainMinerStats = () => {
         // Update the state variable with the new data
         setStats((prevStats) => ({
           ...prevStats,
-          totalDollarRevenue: btcData.btcData.price * lastTotalRevenue,
+          totalDollarRevenue: btcData * lastTotalRevenue,
         }));
       } catch (error) {
         console.error("Error fetching data: ", error);

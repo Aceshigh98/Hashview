@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./Card.module.css";
-import { FaDollarSign } from "react-icons/fa";
 
 const Card = ({ type, value, Image, tag }) => {
   return (

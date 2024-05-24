@@ -13,14 +13,9 @@ const Sidebar = () => {
   const [minerNames, setMinerNames] = useState([]);
 
   useEffect(() => {
-    // Check if the user is logged in
-    if (!user) {
-      console.error("Please log in");
-      return;
-    }
     const fetchData = async () => {
       const minerIds = await axios.post(
-        "http://localhost:80/api/minersIds",
+        "http://localhost:80/api/data/minersIds",
         {
           userName: user.userName,
         },
@@ -31,7 +26,7 @@ const Sidebar = () => {
         }
       );
       const minerNames = await axios.post(
-        "http://localhost:80/api/minersWorkerNames",
+        "http://localhost:80/api/data/minersWorkerNames",
 
         {
           userName: user.userName,

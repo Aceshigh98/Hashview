@@ -13,8 +13,6 @@ const createToken = (_id) => {
 const loginUser = async (req, res) => {
   const { userName, password } = req.body;
 
-  console.log(userName);
-
   try {
     const user = await userModel.login(userName, password);
     //create token
@@ -29,6 +27,7 @@ const loginUser = async (req, res) => {
 //signup user
 
 const signupUser = async (req, res) => {
+  console.log(req.body);
   const { userName, password, luxorUsername, luxorKey } = req.body;
 
   try {
