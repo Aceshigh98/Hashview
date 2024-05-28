@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import classes from "./SignupPage.module.css";
 import { World } from "../../util/globe";
 import { useSignup } from "../../hooks/useSignup";
@@ -48,10 +49,14 @@ const SignupPage = () => {
             onChange={(e) => setLuxorKey(e.target.value)}
             value={luxorKey}
           />
-          {error && <p className={classes.error}>{error}</p>}
+          {error && <p className={classes["error"]}>{error}</p>}
           <button disabled={loading} type="submit">
             Create Account
           </button>
+          <p className={classes["p-tag"]}>Already have an Account?</p>
+          <Link to="/login" className={classes["signup-button"]}>
+            Login
+          </Link>
         </form>
       </div>
       <div className={classes["right-container"]}>

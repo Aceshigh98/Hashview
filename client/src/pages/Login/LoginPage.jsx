@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import classes from "./LoginPage.module.css";
 import { World } from "../../util/globe"; // Import the World component
 import { useLogin } from "../../hooks/useLogin"; // Import the useLogin hook
@@ -39,6 +40,10 @@ const LoginPage = () => {
           <button disabled={loading} type="submit">
             Login
           </button>
+          <p>Create an Account</p>
+          <Link to="/signup" className={classes["signup-button"]}>
+            Sign Up
+          </Link>
         </form>
       </div>
       <div className={classes["right-container"]}>
