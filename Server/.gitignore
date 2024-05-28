@@ -2,3 +2,6 @@
 
 # Ignore .env files
 *.env
+
+# Ignore log files
+package-lock.json

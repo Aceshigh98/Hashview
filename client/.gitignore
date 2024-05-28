@@ -5,6 +5,10 @@
 /.pnp
 .env
 .pnp.js
+.gitignore
+
+# Ignore log files
+package-lock.json
 
 # Ignore .env files
 *.env
