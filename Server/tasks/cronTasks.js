@@ -1,6 +1,6 @@
 const cron = require("node-cron");
 const getUserCredentials = require("../service/luxorUserData");
-const updateWorkerDetails = require("../service/updateWorkerDetails");
+const { updateWorkerDetails } = require("../service/updateWorkerDetails");
 
 // scheduler.js
 

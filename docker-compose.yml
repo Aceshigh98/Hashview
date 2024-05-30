@@ -1,0 +1,42 @@
+
+services:
+  mongodb:
+    image: mongo
+    container_name: 'hashview-mongodb_c'
+    ports:
+      - "27017:27017"
+    networks:
+      - app_net
+    restart: always
+
+  server:
+    build: './server'
+    container_name: 'hashview-server_c'
+    ports: 
+      - '5000:5000'
+    stdin_open: true
+    tty: true
+    env_file:
+      - ./server/.env
+    depends_on:
+      - mongodb
+    networks:
+      - app_net
+
+  client:
+    build: './client'
+    container_name: 'hashview-client_c'
+    ports: 
+      - '3000:3000'
+    env_file:
+      - ./client/.env
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge
+
+
+    
+ 

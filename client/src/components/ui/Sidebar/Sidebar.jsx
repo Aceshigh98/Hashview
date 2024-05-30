@@ -14,34 +14,34 @@ const Sidebar = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const minerIds = await axios.post(
-        "http://localhost:80/api/data/minersIds",
-        {
-          userName: user.userName,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
+      try {
+        const minerIdsResponse = await axios.post(
+          "http://localhost:5000/api/data/minersIds",
+          {
+            userName: user.userName,
           },
-        }
-      );
-      const minerNames = await axios.post(
-        "http://localhost:80/api/data/minersWorkerNames",
-
-        {
-          userName: user.userName,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        const minerNamesResponse = await axios.post(
+          "http://localhost:5000/api/data/minersWorkerNames",
+          {
+            userName: user.userName,
           },
-        }
-      );
-      const response = await Promise.all([minerIds, minerNames]);
-      const dataIds = response[0].data; // Change this line
-      const dataNames = response[1].data; // Change this line
-      setMinerIds(dataIds);
-      setMinerNames(dataNames);
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setMinerIds(minerIdsResponse.data);
+        setMinerNames(minerNamesResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     if (user) {
@@ -65,7 +65,7 @@ const Sidebar = () => {
           </Link>
         </div>
         {minerIds.map((minerId, index) => (
-          <div key={index} className={classes["name-container"]}>
+          <div key={minerId} className={classes["name-container"]}>
             <Link to={`/Miner/${minerId}`} onClick={toggleSidebar}>
               <h1>Miner: {minerNames[index]}</h1>
             </Link>

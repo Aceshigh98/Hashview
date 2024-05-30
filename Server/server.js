@@ -7,6 +7,8 @@ const tasks = require("./tasks/cronTasks");
 //Connecting to Mongo Database.
 const connectDB = require("./database/dbConfig");
 
+const PORT = process.env.PORT || 80;
+
 //Scheduled tasks
 tasks();
 
@@ -23,6 +25,6 @@ app.use("/api/user", userRoutes);
 app.use("/api/data", minersRoutes);
 
 // Start Server
-app.listen(80, () => {
-  console.log("Server is running on port 80.");
+app.listen(PORT, () => {
+  console.log("Server is running on port 5000.");
 });

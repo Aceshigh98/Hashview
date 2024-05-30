@@ -12,6 +12,9 @@ const fetchMiner = async (req, res) => {
       return res.status(400).json({ message: "Username is required" });
     }
     const user = await minersSchema.findOne({ userName: userName });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
     const miner = user.miners.find((miner) => miner.minerId === id);
     res.json(miner);
   } catch (error) {
@@ -22,6 +25,7 @@ const fetchMiner = async (req, res) => {
 
 //Get all miners Ids
 const fetchMinersId = async (req, res) => {
+  console.log(req.body);
   try {
     const { userName } = req.body;
     // Ensure userName is provided
@@ -29,6 +33,10 @@ const fetchMinersId = async (req, res) => {
       return res.status(400).json({ message: "Username is required" });
     }
     const user = await minersSchema.findOne({ userName: userName });
+    // Ensure user exists
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
     const minerIds = user.miners.map((miner) => miner.minerId);
     res.json(minerIds);
   } catch (error) {
@@ -46,6 +54,9 @@ const fetchMinersWorkerNames = async (req, res) => {
       return res.status(400).json({ message: "Username is required" });
     }
     const user = await minersSchema.findOne({ userName: userName });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
     const minerWorkerNames = user.miners.map((miner) => miner.workerName);
     res.json(minerWorkerNames);
   } catch (error) {

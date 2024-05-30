@@ -12,12 +12,15 @@ export const useSignup = () => {
     setError(null);
 
     try {
-      const response = await axios.post("http://localhost:80/api/user/signup", {
-        userName,
-        password,
-        luxorUsername,
-        luxorKey,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/user/signup",
+        {
+          userName,
+          password,
+          luxorUsername,
+          luxorKey,
+        }
+      );
 
       // Assuming a successful response status is 200
       if (response.status === 200) {

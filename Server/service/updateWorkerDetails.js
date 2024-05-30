@@ -170,4 +170,61 @@ const updateWorkerDetails = async (type, user) => {
   }
 };
 
-module.exports = updateWorkerDetails;
+const initialWorkerDetails = async (userName, luxorUsername, luxorKey) => {
+  const time = getTime();
+  const day = getDay();
+  // Fetch the worker details from the Luxor API
+  const workers = await fetchWorkerDetails(luxorUsername, luxorKey);
+
+  // Calculate the total hashrate and revenue of all the workers
+  const { totalHashrate, totalRevenue } = calculateTotals(workers);
+
+  try {
+    // Fetch the worker details from the Luxor API
+    const workers = await fetchWorkerDetails(luxorUsername, luxorKey);
+
+    // Calculate the total hashrate and revenue of all the workers
+    const { totalHashrate, totalRevenue } = calculateTotals(workers);
+
+    // Check if the user exists in the database
+    let userDoc = await minersModel.findOne({ userName: userName });
+
+    if (!userDoc) {
+      userDoc = new minersModel({
+        userName: userName,
+        miners: [],
+        totalHashrate: [],
+        totalRevenue: [],
+        lastUpdated: time,
+      });
+      await userDoc.save();
+    }
+
+    // Update the miner details for all the workers
+    for (const worker of workers) {
+      const updateResult = await updateMinerDetails(
+        userName,
+        worker,
+        day,
+        time
+      );
+      if (updateResult.matchedCount === 0) {
+        await addNewMiner(userName, worker, time);
+      }
+    }
+
+    // Update the total hashrate and revenue of the user
+    await updateTotalHashrateAndRevenue(
+      userName,
+      totalHashrate,
+      totalRevenue,
+      day
+    );
+
+    console.log(`Updated miner details for all miners. User: ${userName}`);
+  } catch (error) {
+    console.error(`Error updating miner details: ${userName}`, error);
+  }
+};
+
+module.exports = { updateWorkerDetails, initialWorkerDetails };

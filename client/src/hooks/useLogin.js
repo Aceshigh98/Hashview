@@ -12,10 +12,13 @@ export const useLogin = () => {
     setError(null);
 
     try {
-      const response = await axios.post("http://localhost:80/api/user/login", {
-        userName,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/user/login",
+        {
+          userName,
+          password,
+        }
+      );
 
       console.log(response);
 

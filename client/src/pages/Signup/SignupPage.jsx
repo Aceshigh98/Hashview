@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./SignupPage.module.css";
 import { World } from "../../util/globe";
 import { useSignup } from "../../hooks/useSignup";
@@ -11,10 +11,15 @@ const SignupPage = () => {
   const [luxorUsername, setLuxorUsername] = useState("");
   const [luxorKey, setLuxorKey] = useState("");
   const { signup, error, loading } = useSignup();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signup(username, password, luxorUsername, luxorKey);
+
+    if (!error) {
+      navigate("/login");
+    }
   };
 
   return (
@@ -29,29 +34,32 @@ const SignupPage = () => {
             placeholder="Username"
             onChange={(e) => setUsername(e.target.value)}
             value={username}
+            required
           />
           <input
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            required
           />
-
           <input
             type="text"
             placeholder="Luxor Username"
             onChange={(e) => setLuxorUsername(e.target.value)}
             value={luxorUsername}
+            required
           />
           <input
             type="text"
             placeholder="Luxor Key"
             onChange={(e) => setLuxorKey(e.target.value)}
             value={luxorKey}
+            required
           />
           {error && <p className={classes["error"]}>{error}</p>}
           <button disabled={loading} type="submit">
-            Create Account
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
           <p className={classes["p-tag"]}>Already have an Account?</p>
           <Link to="/login" className={classes["signup-button"]}>

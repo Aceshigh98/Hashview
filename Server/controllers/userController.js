@@ -1,7 +1,6 @@
-//login user
-
 const userModel = require("../models/userModel");
 const jwt = require("jsonwebtoken");
+const { initialWorkerDetails } = require("../service/updateWorkerDetails");
 
 //create token
 const createToken = (_id) => {
@@ -29,6 +28,8 @@ const loginUser = async (req, res) => {
 const signupUser = async (req, res) => {
   console.log(req.body);
   const { userName, password, luxorUsername, luxorKey } = req.body;
+
+  initialWorkerDetails(userName, luxorUsername, luxorKey);
 
   try {
     const user = await userModel.signup(
