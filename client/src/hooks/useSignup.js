@@ -28,7 +28,6 @@ export const useSignup = () => {
         localStorage.setItem("user", JSON.stringify(response.data));
         // Update the user in the context
         dispatch({ type: "LOGIN", payload: response.data });
-        // Redirect the user to the dashboard or perform any other logic
       } else {
         // Handle non-200 responses
         setError(response.data.message || "Signup failed");

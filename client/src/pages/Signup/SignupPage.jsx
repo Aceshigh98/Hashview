@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classes from "./SignupPage.module.css";
 import { World } from "../../util/globe";
 import { useSignup } from "../../hooks/useSignup";
@@ -11,15 +11,10 @@ const SignupPage = () => {
   const [luxorUsername, setLuxorUsername] = useState("");
   const [luxorKey, setLuxorKey] = useState("");
   const { signup, error, loading } = useSignup();
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signup(username, password, luxorUsername, luxorKey);
-
-    if (!error) {
-      navigate("/login");
-    }
   };
 
   return (
@@ -62,7 +57,7 @@ const SignupPage = () => {
             {loading ? "Creating Account..." : "Create Account"}
           </button>
           <p className={classes["p-tag"]}>Already have an Account?</p>
-          <Link to="/login" className={classes["signup-button"]}>
+          <Link to="/login" className={classes["login-button"]}>
             Login
           </Link>
         </form>

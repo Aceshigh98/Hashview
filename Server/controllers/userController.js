@@ -29,7 +29,7 @@ const signupUser = async (req, res) => {
   console.log(req.body);
   const { userName, password, luxorUsername, luxorKey } = req.body;
 
-  initialWorkerDetails(userName, luxorUsername, luxorKey);
+  await initialWorkerDetails(userName, luxorUsername, luxorKey);
 
   try {
     const user = await userModel.signup(

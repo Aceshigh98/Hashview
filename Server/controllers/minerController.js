@@ -25,17 +25,19 @@ const fetchMiner = async (req, res) => {
 
 //Get all miners Ids
 const fetchMinersId = async (req, res) => {
-  console.log(req.body);
+  console.log("fetchMinerId body: " + req.body.userName);
   try {
     const { userName } = req.body;
     // Ensure userName is provided
     if (!userName) {
-      return res.status(400).json({ message: "Username is required" });
-    }
+      return res.status(400).json({ message: "Username is required: line 35" });
+    } // Error
     const user = await minersSchema.findOne({ userName: userName });
+
+    console.log("fetchMinerId User: " + user);
     // Ensure user exists
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found Error" });
     }
     const minerIds = user.miners.map((miner) => miner.minerId);
     res.json(minerIds);

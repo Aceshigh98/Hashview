@@ -58,6 +58,8 @@ userSchema.statics.signup = async function (
     luxorKey,
   });
 
+  console.log("User: --" + user);
+
   return user;
 };
 
