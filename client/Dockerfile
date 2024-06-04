@@ -16,7 +16,7 @@ RUN npm install
 COPY . .
 
 # Make port 80 available to the world outside this container
-EXPOSE 3000
+EXPOSE 443
 
 # Run the server
 CMD ["npm", "start"]
