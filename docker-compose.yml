@@ -18,6 +18,8 @@ services:
     tty: true
     env_file:
       - ./server/.env
+    volumes:
+      - /etc/letsencrypt/live/www.hash-view.com:/etc/letsencrypt/live/www.hash-view.com
     depends_on:
       - mongodb
     networks:
