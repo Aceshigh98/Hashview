@@ -20,15 +20,15 @@ const app = express();
 
 // Let's Encrypt SSL Certificate
 const privateKey = fs.readFileSync(
-  "/etc/letsencrypt/live/api.hash-view.com/privkey.pem",
+  "/etc/letsencrypt/live/www.hash-view.com/privkey.pem",
   "utf8"
 );
 const certificate = fs.readFileSync(
-  "/etc/letsencrypt/live/api.hash-view.com/cert.pem",
+  "/etc/letsencrypt/live/www.hash-view.com/cert.pem",
   "utf8"
 );
 const ca = fs.readFileSync(
-  "/etc/letsencrypt/live/api.hash-view.com/chain.pem",
+  "/etc/letsencrypt/live/www.hash-view.com/chain.pem",
   "utf8"
 );
 
