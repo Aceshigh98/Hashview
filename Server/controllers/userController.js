@@ -38,7 +38,6 @@ const signupUser = async (req, res) => {
       luxorUsername,
       luxorKey
     );
-    console.log(user._id);
     //create token
     const token = createToken(user._id);
 

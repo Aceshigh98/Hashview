@@ -16,9 +16,6 @@ const Sidebar = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Sidebar.jsx line 21: " + user.userName);
-      console.log("Sidebar.jsx line 22: " + user.token);
-
       try {
         const minerIdsResponse = await axios.post(
           "http://localhost:5000/api/data/minersIds",

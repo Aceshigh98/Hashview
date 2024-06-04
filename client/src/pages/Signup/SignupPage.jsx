@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import classes from "./SignupPage.module.css";
 import { World } from "../../util/globe";
 import { useSignup } from "../../hooks/useSignup";
+import HelpModal from "../../components/ui/HelpModal/HelpModal";
 import image from "../../assets/logo.png";
 
 const SignupPage = () => {
@@ -56,7 +57,10 @@ const SignupPage = () => {
           <button disabled={loading} type="submit">
             {loading ? "Creating Account..." : "Create Account"}
           </button>
-          <p className={classes["p-tag"]}>Already have an Account?</p>
+          <p className={classes["p-tag"]}>
+            Already have an Account? Or..
+            <HelpModal />
+          </p>
           <Link to="/login" className={classes["login-button"]}>
             Login
           </Link>

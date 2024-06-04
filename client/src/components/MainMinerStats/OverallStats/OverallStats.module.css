@@ -3,7 +3,12 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    row-gap: 20px;
-    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 450px) {
+    .container{
+        justify-content: space-evenly;
+
+    }
 }
 

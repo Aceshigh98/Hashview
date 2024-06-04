@@ -1,10 +1,11 @@
 
 .container {
     padding: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
     width: 50%;
     height: 400px;
-    margin-top: 40px;
-    margin-bottom: 40px;
     background-color: rgb(35, 35, 32);
     border-radius: 0.5rem;
     box-shadow: 1px 1px 5px white, -1px -1px 5px white;
@@ -22,5 +23,18 @@ background: linear-gradient(to right, #F0BA33, #BD8700);
 
     .container {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+
+    .container {
+        width: 90%;
+        height: 200px;
+        padding: 10px;
+    }
+
+    .chart-container{
+        margin: auto;
     }
 }

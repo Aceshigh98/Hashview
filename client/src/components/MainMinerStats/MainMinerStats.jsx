@@ -11,8 +11,6 @@ const MainMinerStats = () => {
   // Get user from AuthContext
   const { user } = useAuthContext();
 
-  console.log(user);
-
   // Use the useState hook to create a state variable and a function to update it
   const [stats, setStats] = useState({
     userName: "",

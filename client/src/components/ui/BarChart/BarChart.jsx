@@ -62,7 +62,7 @@ const BarChart = ({ values, dates }) => {
         show: true,
         style: {
           colors: Array(datesArray.length).fill("#FFFFFF"), // Change x-axis label colors
-          fontSize: "12px",
+          fontSize: "10px",
           fontWeight: "700",
         },
       },

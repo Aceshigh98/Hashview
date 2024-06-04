@@ -12,7 +12,7 @@ import LoginPage from "./pages/Login/LoginPage.jsx";
 import SignupPage from "./pages/Signup/SignupPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import MinersPage from "./pages/MinersPage.jsx";
-const AboutPage = lazy(() => import("./pages/AboutPage.jsx"));
+const AboutPage = lazy(() => import("./pages/About/AboutPage.jsx"));
 
 function App() {
   const { user } = useAuthContext();
@@ -40,6 +40,11 @@ function App() {
             />
             <Route
               path="/About"
+              element={user ? <AboutPage /> : <Navigate to="/login" />}
+            />
+
+            <Route
+              path="/Docs"
               element={user ? <AboutPage /> : <Navigate to="/login" />}
             />
           </Route>

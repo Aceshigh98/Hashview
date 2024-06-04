@@ -20,8 +20,6 @@ export const useLogin = () => {
         }
       );
 
-      console.log(response);
-
       // Assuming a successful response status is 200
       if (response.status === 200) {
         // Save the user in local storage

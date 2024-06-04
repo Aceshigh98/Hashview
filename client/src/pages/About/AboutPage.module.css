@@ -1,0 +1,45 @@
+.container {
+  font-family: 'Arial', sans-serif;
+  position: relative;
+  height: auto;
+  margin: auto;
+  max-width: 80%;
+  padding-top: 100px;
+  padding-bottom: 300px;
+  background-color: black;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  color: white; /* Set text color to white */
+}
+
+.header {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #f5af19;
+  text-align: center;
+  opacity: 1; /* Set opacity to 1 */
+}
+
+.subHeader {
+  font-size: 2em;
+  margin-bottom: 15px;
+  color: #f5af19;
+}
+
+.paragraph {
+  font-size: 1.2em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.list {
+  list-style-type: disc;
+  margin-left: 20px;
+  color: white;
+}
+

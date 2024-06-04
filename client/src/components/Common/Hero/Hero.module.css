@@ -2,10 +2,9 @@
 .hero-container{
     height: auto;
     width: auto;
-    padding-top: 100px;
     padding-left: 250px;
     padding-right: 250px;
-    z-index: 1000;
+    z-index: 1;
 }
 
 @media screen and (max-width: 1000px) {
@@ -13,6 +12,17 @@
     .hero-container {
         padding-left: 50px;
         padding-right: 75px;
+        width: 100%;
+    }
+
+  
+}
+
+@media screen and (max-width: 450px) {
+
+    .hero-container {
+        padding-left: 0px;
+        padding-right: 0px;
         width: 100%;
     }
 
