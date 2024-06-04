@@ -6,17 +6,24 @@ FROM node:22-alpine
 # Set the working directory in the container to /app
 WORKDIR /app
 
-# Copy package.json to the working directory
+# Copy package.json 
 COPY package.json .
 
 # Install app dependencies
 RUN npm install 
 
-# Set the working directory in the container to /app
+# Copy the rest of the application files to the working directory
 COPY . .
 
-# Make port 80 available to the world outside this container
+# Set the HTTPS environment variable to true
+ENV HTTPS=true
+
+# Build the React app
+RUN npm run build
+
+# Make port 443 available to the world outside this container
 EXPOSE 443
 
 # Run the server
 CMD ["npm", "start"]
+
