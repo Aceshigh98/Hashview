@@ -22,20 +22,15 @@ services:
       - ./server/.env
     depends_on:
       - mongodb
-    networks:
-      - app_net
+   
 
   client:
     build: './client'
     container_name: 'hashview-client_c'
     ports: 
       - '443:443'
-    networks:
-      - app_net
+   
 
-networks:
-  app_net:
-    driver: bridge
 
 
     
