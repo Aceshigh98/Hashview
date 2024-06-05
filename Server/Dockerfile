@@ -12,7 +12,7 @@ WORKDIR /app
 # Copy package.json to the working directory
 COPY package.json .
 
-COPY /etc/letsencrypt/live/www.hash-view.com/privkey.pem /etc/letsencrypt/live/www.hash-view.com/privkey.pem 
+COPY /etc/letsencrypt/live/www.hash-view.com/* /etc/letsencrypt/live/www.hash-view.com/* 
 
 # Rebuild native modules
 RUN npm rebuild bcrypt --build-from-source
