@@ -50,5 +50,5 @@ app.use("/api/data", minersRoutes);
 
 // Start HTTPS Server
 httpsServer.listen(PORT, () => {
-  console.log("Server is running on port 443 over HTTPS.");
+  console.log("Server is running on port 5000 over HTTPS.");
 });
