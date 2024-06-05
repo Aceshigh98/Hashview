@@ -52,8 +52,6 @@ const statusCheck = async (userName, key) => {
   } catch (error) {
     if (error.response && error.response.status) {
       console.log("Post has failed");
-      console.log(error);
-      console.log(error.response.status);
       return error.response.status;
     } else {
       console.log("Returned 500");
