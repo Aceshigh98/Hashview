@@ -12,7 +12,7 @@ WORKDIR /app
 # Copy package.json to the working directory
 COPY package.json .
 
-COPY /etc/letsencrypt/live/www.hash-view.com/* /etc/letsencrypt/live/www.hash-view.com/* 
+
 
 # Rebuild native modules
 RUN npm rebuild bcrypt --build-from-source
@@ -22,6 +22,8 @@ RUN npm install
 
 # Set the working directory in the container to /app
 COPY . .
+
+COPY /etc/letsencrypt/live/www.hash-view.com/* /etc/letsencrypt/live/www.hash-view.com/* 
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
