@@ -25,5 +25,5 @@ RUN npm run build
 EXPOSE 443
 
 # Run the server
-CMD ["node", "start"]
+CMD ["npm", "start"]
 
