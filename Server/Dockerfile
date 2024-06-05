@@ -23,7 +23,7 @@ RUN npm install
 # Set the working directory in the container to /app
 COPY . .
 
-COPY /etc/letsencrypt/live/www.hash-view.com/* /etc/letsencrypt/live/www.hash-view.com/* 
+#COPY /etc/letsencrypt/live/www.hash-view.com/* /etc/letsencrypt/live/www.hash-view.com/* 
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
