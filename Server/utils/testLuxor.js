@@ -46,13 +46,11 @@ const statusCheck = async (userName, key) => {
       return 200;
     } else {
       console.log("Post has failed1");
-      console.log(response.status);
       return response.status;
     }
   } catch (error) {
     if (error.response && error.response.status) {
       console.log("Post has failed");
-      return error.response.status;
     } else {
       console.log("Returned 500");
       return 500; // Internal Server Error
