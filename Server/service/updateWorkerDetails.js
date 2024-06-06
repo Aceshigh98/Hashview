@@ -7,8 +7,13 @@ const { getTime, getDay } = require("../utils/time.js");
 // This function is used to fetch the worker details from the Luxor API
 
 const fetchWorkerDetails = async (luxorUsername, luxorKey) => {
-  const data = await workerDetails(luxorUsername, luxorKey);
-  return data.data.getWorkerDetails.edges;
+  try {
+    const data = await workerDetails(luxorUsername, luxorKey);
+    return data.data.getWorkerDetails.edges;
+  } catch (error) {
+    console.error("Error fetching worker details from Luxor API");
+    return error;
+  }
 };
 
 // This function is use to calculate the total hashrate and revenue of all the workers
@@ -173,11 +178,6 @@ const updateWorkerDetails = async (type, user) => {
 const initialWorkerDetails = async (userName, luxorUsername, luxorKey) => {
   const time = getTime();
   const day = getDay();
-  // Fetch the worker details from the Luxor API
-  const workers = await fetchWorkerDetails(luxorUsername, luxorKey);
-
-  // Calculate the total hashrate and revenue of all the workers
-  const { totalHashrate, totalRevenue } = calculateTotals(workers);
 
   try {
     // Fetch the worker details from the Luxor API

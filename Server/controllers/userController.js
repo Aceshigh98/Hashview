@@ -29,8 +29,6 @@ const signupUser = async (req, res) => {
   console.log(req.body);
   const { userName, password, luxorUsername, luxorKey } = req.body;
 
-  await initialWorkerDetails(userName, luxorUsername, luxorKey);
-
   try {
     const user = await userModel.signup(
       userName,
@@ -38,13 +36,16 @@ const signupUser = async (req, res) => {
       luxorUsername,
       luxorKey
     );
+    console.log(user._id);
     //create token
     const token = createToken(user._id);
 
+    await initialWorkerDetails(userName, luxorUsername, luxorKey);
+
     res.status(200).json({ userName, token });
   } catch (error) {
-    res.status(400);
-    console.log("POST request failed: Line 47 userController.js");
+    console.log(error);
+    res.status(400).json({ message: error.message });
   }
 };
 
