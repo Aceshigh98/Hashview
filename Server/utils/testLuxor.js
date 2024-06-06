@@ -42,7 +42,7 @@ const statusCheck = async (userName, key) => {
     );
 
     if (response.status === 200) {
-      console.log(response.status);
+      console.log("post is successful");
       return 200;
     } else {
       console.log("Post has failed1");
@@ -51,6 +51,7 @@ const statusCheck = async (userName, key) => {
   } catch (error) {
     if (error.response && error.response.status) {
       console.log("Post has failed");
+      return 500;
     } else {
       console.log("Returned 500");
       return 500; // Internal Server Error

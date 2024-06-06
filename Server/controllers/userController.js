@@ -43,7 +43,8 @@ const signupUser = async (req, res) => {
 
     res.status(200).json({ userName, token });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400);
+    console.log("POST request failed: Line 47 userController.js");
   }
 };
 
