@@ -25,7 +25,7 @@ const MinerStats = () => {
     const fetchMiner = async () => {
       try {
         const response = await axios.post(
-          `https://api.hash-view.com:5000/api/data/minerDetails/${minerId}`,
+          `https://www.hash-view.com/api/data/minerDetails/${minerId}`,
           {
             userName: user.userName,
           },

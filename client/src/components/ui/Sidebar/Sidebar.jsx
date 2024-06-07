@@ -18,7 +18,7 @@ const Sidebar = () => {
     const fetchData = async () => {
       try {
         const minerIdsResponse = await axios.post(
-          "https://api.hash-view.com:5000/api/data/minersIds",
+          "https://www.hash-view.com/api/data/minersIds",
           {
             userName: user.userName,
           },
@@ -29,7 +29,7 @@ const Sidebar = () => {
           }
         );
         const minerNamesResponse = await axios.post(
-          "https://api.hash-view.com:5000/api/data/minersWorkerNames",
+          "https://www.hash-view.com/api/data/minersWorkerNames",
           {
             userName: user.userName,
           },

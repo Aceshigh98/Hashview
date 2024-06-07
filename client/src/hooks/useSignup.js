@@ -13,7 +13,7 @@ export const useSignup = () => {
 
     try {
       const response = await axios.post(
-        "https://api.hash-view.com:5000/api/user/signup",
+        "https://www.hash-view.com/api/user/signup",
         {
           userName,
           password,
