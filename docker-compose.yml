@@ -29,7 +29,7 @@ services:
     tty: true
 
   nginx:
-    build: nginx:latest
+    build: nginx
     container_name: 'hashview-nginx'
     ports:
       - '80:80'
