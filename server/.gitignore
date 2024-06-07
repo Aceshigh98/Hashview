@@ -1,0 +1,11 @@
+/node_modules
+
+# Ignore .env files
+*.env
+
+# Ignore .DS_Store file
+.DS_Store
+
+
+# Ignore log files
+package-lock.json
