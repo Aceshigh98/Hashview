@@ -15,6 +15,7 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     await signup(username, password, luxorUsername, luxorKey);
   };
 
