@@ -27,3 +27,10 @@ EXPOSE 3000
 # Run the server
 CMD ["npm", "start"]
 
+# Do not use until production ready.
+# Install serve to serve the static files.
+#RUN npm install -g serve
+
+# Serve the static files
+#CMD ["serve", "-s", "build"]
+
