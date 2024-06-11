@@ -1,14 +1,19 @@
-
-
 services:
   mongodb:
     image: mongo:latest
     container_name: 'hashview-mongodb'
     ports:
       - "27017:27017"
+    volumes:
+      - /app/Hashview/mongo/mongo_data:/data/db
+      - /app/Hashview/mongo/mongod.conf:/etc/mongo/mongod.conf # Mount the custom config file
+    command: --config /etc/mongo/mongod.conf # Use the custom config file
     restart: always
     stdin_open: true
     tty: true
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
 
   server:
     build: './server'
@@ -17,8 +22,10 @@ services:
       - '5000:5000'
     stdin_open: true
     tty: true
-    env_file:
-      - ./server/.env
+    environment:
+      - ${URI}
+      - ${TOKEN_SECRET}
+      - ${PORT}
     depends_on:
       - mongodb
 
@@ -37,10 +44,14 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - /app/Hashview/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/ssl:/etc/letsencrypt/live/www.hash-view.com 
+      - /app/Hashview/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/letsencrypt/live/www.hash-view.com
     depends_on:
       - server
       - client
     stdin_open: true
     tty: true
+
+# Volumes
+volumes:
+  mongo_data:
